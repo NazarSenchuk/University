@@ -1,4 +1,5 @@
 package droids;
+import logger.BattleLogger;
 
 public class AssaultDroid extends Droid {
     private int criticalStrikeChance;
@@ -11,16 +12,17 @@ public class AssaultDroid extends Droid {
     }
     @Override
     public void attack(Droid target) {
-        System.out.println(" Дроїд штурмовик з назвою " + getName() + " атакує!");
+        logger.BattleLogger.attackLog(this, target, criticalStrikeChance);
         if ( Math.random() * 100  < getAccuracy() ){
+
         if (Math.random() * 100 < criticalStrikeChance) {
-            System.out.println("Дроїд штурмовик завдав критичного удару!");
+            logger.BattleLogger.criticalAtackLog(this, target, criticalStrikeChance);
             target.takeDamage(getAttack() * 2);
         } else {
-            System.out.println("Дроїд штурмовик завдав удару!");
+            logger.BattleLogger.simpleAtackLog(target, target, criticalStrikeChance);
             target.takeDamage(getAttack());
         }} else {
-            System.out.println( "Дроїд штурмовик промахнувся");
+            logger.BattleLogger.missLog(target);
 
 
         }

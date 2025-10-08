@@ -1,0 +1,6 @@
+build.py
+../cpp/src/processor.cpp
+photo_processor.egg-info/PKG-INFO
+photo_processor.egg-info/SOURCES.txt
+photo_processor.egg-info/dependency_links.txt
+photo_processor.egg-info/top_level.txt

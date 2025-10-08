@@ -1,5 +1,5 @@
 package droids;
-
+import logger.BattleLogger;
 public class ArmorDroid extends Droid {
     private int armor;
 
@@ -12,12 +12,12 @@ public class ArmorDroid extends Droid {
     @Override
     public void attack(Droid target) {
         
-        System.out.println(" Броньований дроїд з назвою " + getName() + " атакує!");
+        logger.BattleLogger.attackLog(this, target,this.getAttack());
         if (Math.random() * 100 < getAccuracy() ) {
-            System.out.println("Броньований дроїд завдав удару!");
+            logger.BattleLogger.simpleAtackLog(target, target, getAttack());
             target.takeDamage(getAttack());
         } else {
-            System.out.println( "Дроїд штурмовик промахнувся");
+            logger.BattleLogger.missLog(this);
         }
     }
     @Override
