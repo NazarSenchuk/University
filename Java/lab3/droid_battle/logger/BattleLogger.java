@@ -14,7 +14,13 @@ public class BattleLogger {
     private static final String GREEN_BOLD = "\033[1;32m";
     private static final String YELLOW_BOLD = "\033[1;33m";
     private static final String BLUE_BOLD = "\033[1;34m";
-    
+
+
+    public static void roundLog(int round) {
+        System.out.println(PURPLE + "╔══════════════════════════════════════╗" + RESET);
+        System.out.println(PURPLE + "║            🔄 РАУНД " + round + " 🔄            ║" + RESET);
+        System.out.println(PURPLE + "╚══════════════════════════════════════╝" + RESET);
+    }
     public static void attackLog(Droid attacker, Droid defender, int damage) {
         System.out.println("\n" + CYAN + "╔══════════════════════════════════════╗" + RESET);
         System.out.println(CYAN + "║              ⚔️  АТАКА ⚔️              ║" + RESET);
@@ -26,7 +32,7 @@ public class BattleLogger {
         System.out.printf("💥 Нанесено ушкоджень: %s%d%s\n", 
                 RED_BOLD, damage, RESET);
         System.out.printf("❤️  Здоров'я %s: %d/%d\n\n", 
-                defender.getName(), defender.getHealth(), getMaxHealth(defender));
+                defender.getName(), defender.getHealth(), defender.getMaxHealth());
     }
     
     public static void criticalAtackLog(Droid attacker, Droid defender, int damage) {
@@ -40,7 +46,7 @@ public class BattleLogger {
         System.out.printf("💥💥 Нанесено КРИТИЧНИХ ушкоджень: %s%d%s\n", 
                 RED_BOLD, damage, RESET);
         System.out.printf("❤️  Здоров'я %s: %d/%d\n\n", 
-                defender.getName(), defender.getHealth(), getMaxHealth(defender));
+                defender.getName(), defender.getHealth(), defender.getMaxHealth());
     }
     
     public static void missLog(Droid attacker) {
@@ -64,7 +70,7 @@ public class BattleLogger {
         System.out.printf("🗡️  Нанесено ушкоджень: %s%d%s\n", 
                 YELLOW_BOLD, damage, RESET);
         System.out.printf("❤️  Здоров'я %s: %d/%d\n\n", 
-                defender.getName(), defender.getHealth(), getMaxHealth(defender));
+                defender.getName(), defender.getHealth(), defender.getMaxHealth());
     }
     
     public static void armorLog(Droid defender, int armor) {
@@ -77,7 +83,7 @@ public class BattleLogger {
         System.out.printf("🛡️  Броня поглинула: %s%d%s ушкоджень\n", 
                 GREEN_BOLD, armor, RESET);
         System.out.printf("❤️  Здоров'я %s: %d/%d\n\n", 
-                defender.getName(), defender.getHealth(), getMaxHealth(defender));
+                defender.getName(), defender.getHealth(), defender.getMaxHealth());
     }
     
     public static void presentationLog(Droid attacker, Droid defender) {
@@ -107,13 +113,6 @@ public class BattleLogger {
                 GREEN_BOLD, winner.getHealth(), RESET);
     }
     
-    public static void droidInfoLog(Droid droid) {
-        System.out.println(YELLOW + "╔══════════════════════════════════════╗" + RESET);
-        System.out.println(YELLOW + "║            🤖 ІНФО ДРОЇДА 🤖           ║" + RESET);
-        System.out.println(YELLOW + "╚══════════════════════════════════════╝" + RESET);
-        System.out.println(droid.toString());
-        System.out.println();
-    }
     
     public static void levelUpLog(Droid droid) {
         System.out.println(GREEN_BOLD + "╔══════════════════════════════════════╗" + RESET);
@@ -125,8 +124,23 @@ public class BattleLogger {
         System.out.printf("❤️  Здоров'я: +10 | 🗡️  Атака: +10\n\n");
     }
     
-    private static int getMaxHealth(Droid droid) {
-        // Припускаємо, що максимальне здоров'я = початкове здоров'я + 10 за кожен рівень
-        return droid.getHealth() + (droid.getLevel() - 1) * 10;
+
+    public  static  void inputNameLog(){ 
+        System.out.println("Введіть назву дроїда:");
+                
+    }
+    public static void inputTypeLog(){
+        System.out.println("Виберіть тип дроїда:");
+        System.out.println("1. Броньований");
+        System.out.println("2. Штурмовий");
+        
+    }
+    public static void sleepLog(int milliseconds){
+        try {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        
     }
 }

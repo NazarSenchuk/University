@@ -13,6 +13,7 @@ public abstract class Droid {
         this.attack = attack;
         this.level = level;
         this.experience = experience;
+        this.accuracy = 80;
     }
     public String getName() {
         return name;
@@ -20,6 +21,10 @@ public abstract class Droid {
     public int getHealth() {
         return health;
     }
+    public  int getMaxHealth() {
+        return 100 + (level - 1) * 10;
+    }
+   
     public int getAttack() {
         return attack;
     }

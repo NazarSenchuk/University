@@ -1,45 +1,40 @@
+package factories;
+
 import droids.ArmorDroid;
 import droids.AssaultDroid;
 
-
-
-public enum DroidType{
-    ARMOR,
-    ASSAULT
-
-}
+import droids.Droid;
+import droids.DroidType;
+import logger.DroidLogger;
+import java.util.Scanner;
 
 public class  DroidFactory{
-    public Droid createDroid(DroidType type  , string name){
-
-        switch(type ){
+    public Droid createDroid(DroidType type, String name) {
+        switch(type) {
             case ARMOR:
                 return new ArmorDroid(name, 100, 10, 1, 0);
-                #logger
-                break;
-
             case ASSAULT:
                 return new AssaultDroid(name, 100, 14, 1, 0);
-                #logger
-                break;
             default:
-                break;
+                return new ArmorDroid(name, 100, 10, 1, 0);
         }
-
-        
-
-
     }
     
-    public Droid[] printListofDroids(Droid[] droids){
-        #logger
-        for (Droid droid : droids){
-            System.out.println(droid);
+    
+    public String inputDroidName(){
+        Scanner sc = new Scanner(System.in);
+        logger.DroidLogger.inputNameLog();
+        String name  = sc.nextLine();
+        
+        return  name ;
+    }   
 
-        }
-
-
-    }
-
-
+    public DroidType inputDroidType(){
+        logger.DroidLogger.inputDroidLog();
+        Scanner sc = new Scanner(System.in);
+        logger.DroidLogger.inputTypeLog();
+        DroidType type    = DroidType.getById( sc.nextInt());
+        
+        return type ;
+    }  
 }

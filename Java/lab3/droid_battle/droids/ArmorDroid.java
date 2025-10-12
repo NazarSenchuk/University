@@ -14,19 +14,26 @@ public class ArmorDroid extends Droid {
         
         logger.BattleLogger.attackLog(this, target,this.getAttack());
         if (Math.random() * 100 < getAccuracy() ) {
-            logger.BattleLogger.simpleAtackLog(target, target, getAttack());
             target.takeDamage(getAttack());
+            logger.BattleLogger.simpleAtackLog(this, target, getAttack());
+            
         } else {
             logger.BattleLogger.missLog(this);
         }
     }
     @Override
-    public void takeDamage(int attack){
-        if (Math.random() * 100 <= 50 )
-            setHealth(getHealth() -  getAttack() );
-        else 
-            setHealth(getHealth() -  (getAttack()  - armor * 2));
+    public void takeDamage(int incomingDamage) { 
+        int actualDamage = incomingDamage; 
+        
+        if (Math.random() * 100 <= 50) {
+
+            actualDamage = Math.max(0, incomingDamage - armor);
+            BattleLogger.armorLog(this, armor);
+        }
+        
+        setHealth(getHealth() - actualDamage); 
     }
+
     @Override
     public String toString() {
         return super.toString() + ", тип: Броньований, броні: " + armor + "%";
