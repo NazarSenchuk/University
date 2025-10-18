@@ -1,0 +1,22 @@
+ALTER TABLE member.Members
+ADD 
+    LastModifiedDate DATETIME DEFAULT GETDATE(),
+    LastModifiedUserName NVARCHAR(50),
+    col1 INT;
+GO
+
+SELECT 
+    COLUMN_NAME, 
+    DATA_TYPE, 
+    IS_NULLABLE,
+    COLUMN_DEFAULT
+FROM INFORMATION_SCHEMA.COLUMNS 
+WHERE TABLE_NAME = 'Members' AND TABLE_SCHEMA = 'member';
+GO
+
+ALTER TABLE member.Members
+DROP COLUMN col1;
+GO
+
+SELECT * FROM member.Members;
+GO
