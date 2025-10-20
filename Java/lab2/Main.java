@@ -1,6 +1,6 @@
 package main;
 
-import entity.Product;
+import model.Product;
 import java.util.ArrayList;
 import java.util.List;
 
