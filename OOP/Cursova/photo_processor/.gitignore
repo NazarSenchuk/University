@@ -2,3 +2,4 @@ venv
 build
 cpp/build
 python/build
+*/site-packages
