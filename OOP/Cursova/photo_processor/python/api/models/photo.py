@@ -7,7 +7,7 @@ class Photo(Base):
     __tablename__ = "photos"
 
     id = Column(Integer, primary_key=True, index=True)
-    filename = Column(String, unique=True, index=True)
+    name  = Column(String, index=True)
     location_id = Column(Integer, ForeignKey("locations.id"))
     img_url = Column(String, unique=True, index=True)
     processed_url = Column(String, unique=True, index=True)

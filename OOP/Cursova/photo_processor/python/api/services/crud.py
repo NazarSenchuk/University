@@ -60,11 +60,10 @@ def create_photo(db: Session, photo: PhotoCreate):
     db.refresh(db_photo)
     return db_photo
 
-def get_photo_by_filename(db: Session, filename: str):
-    return db.query(Photo).filter(Photo.filename == filename).first()
+def get_photos_by_person(db: Session, person_id: int, skip: int = 0, limit: int = 100):
+    """Get all photos associated with a specific person"""
+    return db.query(Photo).join(Photo.persons).filter(Person.id == person_id).offset(skip).limit(limit).all()
 
-def get_photos_by_person(db: Session, person_id: int):
-    return db.query(Photo).join(Photo.persons).filter(Person.id == person_id).all()
-
-def get_photos_by_location(db: Session, location_id: int):
-    return db.query(Photo).filter(Photo.location_id == location_id).all()
+def get_photos_by_location(db: Session, location_id: int, skip: int = 0, limit: int = 100):
+    """Get all photos from a specific location"""
+    return db.query(Photo).filter(Photo.location_id == location_id).offset(skip).limit(limit).all()

@@ -21,14 +21,13 @@ class PhotoUpdate(BaseModel):
 
 class PhotoResponse(PhotoBase):
     id: int
-    filename: str
+    
     img_url: HttpUrl
     processed_url: Optional[HttpUrl] = None
     
     class Config:
         from_attributes = True
 
-# For detailed responses with relationships
 class PhotoWithRelations(PhotoResponse):
     location: Optional[LocationResponse] = None
     persons: List[PersonResponse] = []
@@ -38,7 +37,6 @@ class PhotoUploadResponse(BaseModel):
     upload_info: dict
 
 class FileUploadResponse(BaseModel):
-    filename: str
     original_filename: str
     url: str
     content_type: str

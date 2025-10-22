@@ -39,14 +39,16 @@ class R2Service:
         
         # Generate unique filename
         filename = self.generate_filename(file.filename)
+
         
         try:
             # Upload to R2
             self.s3_client.put_object(
                 Bucket=self.bucket_name,
-                Key=filename,
+                Key=f"original/{filename}",
                 Body=contents,
-                ContentType=file.content_type
+                ContentType=file.content_type,
+
             )
             
             # Generate public URL

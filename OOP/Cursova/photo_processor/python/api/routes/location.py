@@ -1,14 +1,14 @@
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 from typing import List, Optional
-
+from datetime import date
 from database import get_db
 from schemas.location import LocationCreate, LocationResponse
 from services.crud import (
     get_locations, get_location_by_id, create_location, 
 get_photos_by_location , get_location_by_name
 )
-from  services.search import search_locations 
+from  services.search import filter_locations_combined 
 router = APIRouter(prefix="/locations", tags=["locations"])
 
 @router.get("/", response_model=List[LocationResponse])
@@ -33,11 +33,15 @@ def create_new_location(location: LocationCreate, db: Session = Depends(get_db))
     """Create a new location"""
     return create_location(db=db, location=location)
 
-@router.get("/search/", response_model=List[LocationResponse])
+@router.get("/filter/", response_model=List[LocationResponse])
 def search_locations_endpoint(
     q: str = Query(..., description="Search query for location name, country, or description"),
-    db: Session = Depends(get_db)
-):
-    """Search locations by name, country, or description"""
-    return search_locations(db, query=q)
+    db: Session = Depends(get_db),
+    existing: Optional[int] = Query(1, description="Filter by existing locations only (1 for yes, 0 for no)"),
+    skip: int = 0,
+    limit: int = 100):
 
+
+
+    """Search locations by name, country, or description"""
+    return filter_locations_combined(db, query=q  , existing=existing, skip=skip, limit=limit)

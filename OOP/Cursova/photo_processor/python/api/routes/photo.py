@@ -15,6 +15,9 @@ from services.crud import (
      get_photos_by_person, get_photos_by_location,
 )
 from services.r2_service import r2_service
+from services.search import (
+    filter_photos_combined
+)
 
 router = APIRouter(prefix="/photos", tags=["photos"])
 ### ========= GET ============###
@@ -47,17 +50,38 @@ async def get_photo_url(
         raise HTTPException(status_code=404, detail="Photo not found")
     
     return {
-        "filename": photo.filename,
+        "ame": photo.name,
         "original_url": photo.img_url,
         "processed_url": photo.processed_url,
-        "direct_url": r2_service.get_file_url(photo.filename)
+        "direct_url": r2_service.get_file_url(photo.id)
     }
 
+
+@router.get("/person/{person_id}}", response_model=List[PhotoResponse])
+def get_person_photos( 
+    person_id: int,
+    skip: int = 0,
+    limit: int = 100,
+    db: Session = Depends(get_db)
+):
+    photos = get_photos_by_person(  db,person_id=person_id, skip=skip, limit=limit)
+    return photos
+
+@router.get("/location/{person_id}}", response_model=List[PhotoResponse])
+def get_person_photos( 
+    person_id: int,
+    skip: int = 0,
+    limit: int = 100,
+    db: Session = Depends(get_db)
+):
+    photos = get_photos_by_location(  db,person_id=person_id, skip=skip, limit=limit)
+    return photos
 
 ###======== CREATE ============###
 @router.post("/", response_model=PhotoResponse)
 async def create_photo(
     file: UploadFile = File(...),
+    name: str = Form(...),  
     location_id: int = Form(...),
     date: date = Form(...),
     description: str = Form(...),
@@ -71,7 +95,7 @@ async def create_photo(
     
     person_ids_list = json.loads(persons_ids) if persons_ids else []
     db_photo = Photo(
-        filename=upload_info["filename"],
+        name=name,
         img_url=upload_info["url"],
         processed_url=upload_info["url"],
         location_id=location_id,
@@ -98,46 +122,27 @@ async def create_photo(
 
 ##=========== SEARCH =============###
 
-@router.get("/search/", response_model=List[PhotoResponse])
+@router.get("/filter/", response_model=List[PhotoResponse])
 def search_photos_endpoint(
-    q: str = Query(None, description="Search query for filename or description"),
+    query: Optional[str] = Query(None, description="Search in filename or description"),
+    start_date: Optional[date] = Query(None, description="Start date (YYYY-MM-DD)"),
+    end_date: Optional[date] = Query(None, description="End date (YYYY-MM-DD)"),
+    year: Optional[int] = Query(None, description="Filter by year", ge=1900, le=2100),
+    min_persons: Optional[int] = Query(None, description="Minimum number of persons in photo", ge=0),
+    skip: int = 0,
+    limit: int = 100,
     db: Session = Depends(get_db)
 ):
-    """Search photos by filename or description"""
-    if not q:
-        raise HTTPException(status_code=400, detail="Search query is required")
-    return search_photos(db, query=q)
+    """Unified search for photos with multiple filter options"""
+    return filter_photos_combined(
+        db=db,
+        query=query,
+        start_date=start_date,
+        end_date=end_date,
+        year=year,
+        min_persons=min_persons,
+        skip=skip,
+        limit=limit
+    )
 
-
-
-##========= FILTER =============###
-@router.get("/filter/date-range/", response_model=List[PhotoResponse])
-def filter_photos_by_date_range(
-    start_date: date = Query(..., description="Start date (YYYY-MM-DD)"),
-    end_date: date = Query(..., description="End date (YYYY-MM-DD)"),
-    db: Session = Depends(get_db)
-):
-    """Filter photos by date range"""
-    return search_photos_by_date_range(db, start_date=start_date, end_date=end_date)
-
-@router.get("/filter/person/{person_id}", response_model=List[PhotoResponse])
-def get_photos_by_person_endpoint(person_id: int, db: Session = Depends(get_db)):
-    """Get all photos containing a specific person"""
-    return get_photos_by_person(db, person_id=person_id)
-
-@router.get("/filter/location/{location_id}", response_model=List[PhotoResponse])
-def get_photos_by_location_endpoint(location_id: int, db: Session = Depends(get_db)):
-    """Get all photos from a specific location"""
-    return get_photos_by_location(db, location_id=location_id)
-
-@router.delete("/{photo_id}")
-async def delete_photo(
-    photo_id: int,
-    db: Session = Depends(get_db)
-):
-    """Delete photo and associated file from R2"""
-    success = delete_photo_with_file(db, photo_id)
-    if not success:
-        raise HTTPException(status_code=404, detail="Photo not found")
-    return {"message": "Photo deleted successfully"}
 

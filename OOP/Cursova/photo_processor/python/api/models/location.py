@@ -12,3 +12,6 @@ class Location(Base):
     coordinates = Column(String)
     country = Column(String)
     photos = relationship("Photo", back_populates="location")
+    description = Column(String, nullable=True)
+    existing = Column(Integer, default=1)
+        

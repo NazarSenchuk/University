@@ -1,11 +1,19 @@
 from fastapi import FastAPI
 from routes import location, person, photo
 from database import engine, Base
+
+
+
 app = FastAPI(title="Photo Management API", version="1.0.0")
+
+
+
 print("Creating database tables...")
 Base.metadata.create_all(bind=engine)
 print("Tables created successfully!")
-# Include routers
+
+
+
 app.include_router(location.router)
 app.include_router(person.router)
 app.include_router(photo.router)
