@@ -8,11 +8,7 @@ int main() {
     crow::SimpleApp app;
     
     DatabaseConfig db_config;
-    db_config.user = "postgres";
-    db_config.host = "postgres";
-    db_config.password = "mysecretpassword"; 
-    db_config.port = "5432";
-    
+
     ServerConfig server_config;
     server_config.port = 8080;
 
