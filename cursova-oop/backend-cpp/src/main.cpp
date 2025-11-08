@@ -13,11 +13,7 @@ int main() {
     server_config.port = 8080;
 
     R2Config r2_config;
-    r2_config.endpoint = "https://086cf4cab6f623952bd0831a164dc89b.r2.cloudflarestorage.com";
-    r2_config.access_key = "04d7b1d006c66373a5f989eacb72e58e";
-    r2_config.secret_key = "0d16a302e2262503ffd774240e2875a86de91b2fc70ffdaf55f5784bac97200d";
-    r2_config.bucket_name = "images";
-    
+
     // Ініціалізація бази даних
     DatabaseManager db_manager(db_config);
     if (!db_manager.connect()) {
