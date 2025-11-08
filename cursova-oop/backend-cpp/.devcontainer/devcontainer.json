@@ -5,6 +5,10 @@
     "settings": {
       "terminal.integrated.defaultProfile.linux": "bash"
     },
+    "mounts": [
+      "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
+
+    ],  
     "extensions": [
       "ms-vscode.cpptools",
       "ms-vscode.cmake-tools",
