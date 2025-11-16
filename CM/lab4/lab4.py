@@ -2,7 +2,7 @@ from fractions import Fraction
 import numpy as np
 
 group = "OI-25"
-student_name = "Ільків Андрій Богданович"
+student_name = "Сенчук Назарій Михайлович"
 lab_number = 4
 variant = 11
 print(f"Лабораторна робота №{lab_number}")
