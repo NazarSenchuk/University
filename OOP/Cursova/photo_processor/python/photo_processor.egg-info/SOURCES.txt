@@ -1,4 +1,6 @@
 build.py
+setup.py
+../cpp/src/image_processor.cpp
 ../cpp/src/processor.cpp
 photo_processor.egg-info/PKG-INFO
 photo_processor.egg-info/SOURCES.txt

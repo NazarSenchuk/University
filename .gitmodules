@@ -1,0 +1,3 @@
+[submodule "cursova-oop"]
+	path = cursova-oop
+	url = git@github.com:NazarSenchuk/cursova.git
