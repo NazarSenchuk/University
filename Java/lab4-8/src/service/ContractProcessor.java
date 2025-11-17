@@ -1,10 +1,11 @@
 package service;
 
 import model.Contract;
+import model.Derivative;
 
 public class ContractProcessor {
     
-    public boolean validateContract(Contract contract) {
+    public static boolean validateContract(Contract contract) {
         boolean isValid = contract.getStartDate() != null && 
                          contract.getEndDate() != null &&
                          contract.getEndDate().isAfter(contract.getStartDate());
@@ -12,15 +13,35 @@ public class ContractProcessor {
         return isValid;
     }
     
-    public String calculateRisk(Contract contract) {
-        // Спрощена логіка розрахунку ризику
+    public static String calculateRisk(Contract contract) {
         long days = java.time.temporal.ChronoUnit.DAYS.between(contract.getStartDate(), contract.getEndDate());
-        String riskLevel = days > 365 ? "HIGH" : (days > 180 ? "MEDIUM" : "LOW");
+        
+        String riskLevel;
+        if (days > 365) riskLevel = "HIGH"; 
+        else if (days > 180) riskLevel = "MEDIUM";
+        else riskLevel = "LOW";
         contract.setRiskLevel(riskLevel);
         return riskLevel;
     }
     
-    public float calculateValue(Contract contract) {
-        return contract.calculateValue();
+    public static float calculateValue(Contract contract) {
+        long days = java.time.temporal.ChronoUnit.DAYS.between(contract.getStartDate(), contract.getEndDate());
+        float baseValue = days * 10.0f;
+        float riskMultiplier = switch(contract.getRiskLevel()) {
+            case "HIGH" -> 1.5f;
+            case "MEDIUM" -> 1.2f;
+            case "LOW" -> 1.0f;
+            default -> 1.0f;
+        };
+        
+        return baseValue * riskMultiplier;
+    }
+
+    public static float calculateTotalValue(Derivative derivative) {
+        float sum = 0;
+        for (Contract contract : derivative.getContracts()) {
+            sum += calculateValue(contract);
+        }
+        return sum;
     }
 }

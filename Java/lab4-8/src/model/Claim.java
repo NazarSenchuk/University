@@ -24,30 +24,22 @@ public class Claim {
         this.submissionDate = submissionDate;
         this.status = status;
     }
-    
-    // Гетери та сетери
     public int getClaimId() { return claimId; }
     public void setClaimId(int claimId) { this.claimId = claimId; }
-    
     public int getContractNumber() { return contractNumber; }
     public void setContractNumber(int contractNumber) { this.contractNumber = contractNumber; }
-    
     public int getCustomerId() { return customerId; }
     public void setCustomerId(int customerId) { this.customerId = customerId; }
-    
     public float getAmount() { return amount; }
     public void setAmount(float amount) { this.amount = amount; }
-    
     public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
-    
+    public void setDescription(String description) { this.description = description; } 
     public LocalDate getSubmissionDate() { return submissionDate; }
     public void setSubmissionDate(LocalDate submissionDate) { this.submissionDate = submissionDate; }
-    
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
 
-    public static Claim input(Scanner scanner, int contractNumber, int customerId) {
+    public static Claim input(Scanner scanner, int contractNumber, int customerId , int claimId) {
         System.out.println("=== Введення даних вимоги ===");
         
         System.out.print("Сума вимоги: ");
@@ -56,9 +48,6 @@ public class Claim {
         
         System.out.print("Опис вимоги: ");
         String description = scanner.nextLine();
-        
-        int claimId = (int) (Math.random() * 1000);
-        
         return new Claim(claimId, contractNumber, customerId, amount, 
                         description, LocalDate.now(), "На розгляді");
     }

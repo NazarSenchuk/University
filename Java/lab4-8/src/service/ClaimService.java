@@ -17,8 +17,6 @@ public class ClaimService {
     public void submitClaim(List<Contract> contracts, List<Claim> claims) {
         try {
             System.out.println("=== Подача вимоги ===");
-            
-            // Показати доступні контракти
             System.out.println("Доступні контракти:");
             List<Contract> activeContracts = contracts.stream()
                 .filter(Contract::isActive)
@@ -35,8 +33,6 @@ public class ClaimService {
             
             System.out.print("Номер контракту (тільки цифри, без #): ");
             String input = scanner.nextLine().trim();
-            
-            // Видалити символ # якщо він є
             if (input.startsWith("#")) {
                 input = input.substring(1);
             }
@@ -49,9 +45,7 @@ public class ClaimService {
                 return;
             }
             
-            // Перевірити чи контракт існує та активний
-            Contract contract = contracts.stream()
-                .filter(c -> c.getContractNumber() == contractNumber && c.isActive())
+            Contract contract = contracts.stream().filter(c -> c.getContractNumber() == contractNumber && c.isActive())
                 .findFirst()
                 .orElse(null);
                 
@@ -59,39 +53,13 @@ public class ClaimService {
                 System.out.println("Контракт не знайдений або неактивний!");
                 return;
             }
-            
-            // Створення вимоги
-            Claim claim = new Claim();
-            claim.setClaimId(nextClaimId++);
-            claim.setContractNumber(contractNumber);
-            claim.setCustomerId(contract.getCustomerId());
-            claim.setSubmissionDate(LocalDate.now());
-            
-            System.out.print("Сума вимоги: ");
-            String amountInput = scanner.nextLine().trim();
-            float amount;
-            try {
-                amount = Float.parseFloat(amountInput);
-            } catch (NumberFormatException e) {
-                System.out.println("Помилка: введіть коректну суму!");
-                return;
-            }
-            claim.setAmount(amount);
-            
-            System.out.print("Опис події: ");
-            String description = scanner.nextLine();
-            claim.setDescription(description);
-            
-            claim.setStatus("На розгляді");
-            
-            // Збереження вимоги
+            Claim claim =  Claim.input(scanner, contractNumber, contract.getCustomerId() , nextClaimId++);
             claims.add(claim);
             
             System.out.println("Вимогу успішно подано! ID: " + claim.getClaimId());
-            
         } catch (Exception e) {
             System.out.println("Помилка при подачі вимоги: " + e.getMessage());
-            e.printStackTrace(); // Додаємо детальну інформацію про помилку
+            e.printStackTrace();
         }
     }
     
@@ -103,30 +71,24 @@ public class ClaimService {
             int claimId = scanner.nextInt();
             scanner.nextLine();
             
-            Claim claim = claims.stream()
-                .filter(c -> c.getClaimId() == claimId)
-                .findFirst()
-                .orElse(null);
+            Claim claim = claims.stream().filter(c -> c.getClaimId() == claimId).findFirst().orElse(null);
             
             if (claim == null) {
                 System.out.println("Вимога не знайдена!");
                 return;
             }
-            
             System.out.println("Вимога #" + claimId);
             System.out.println("Контракт: " + claim.getContractNumber());
             System.out.println("Сума: " + claim.getAmount());
             System.out.println("Статус: " + claim.getStatus());
             System.out.println("Опис: " + claim.getDescription());
-            
             System.out.print("Дія (1-схвалити, 2-відхилити): ");
             int action = scanner.nextInt();
             scanner.nextLine();
             
             if (action == 1) {
                 claim.setStatus("Схвалено");
-                Contract contract = contracts.stream()
-                .filter(c -> c.getContractNumber() == claim.getContractNumber() && c.isActive())
+                Contract contract = contracts.stream().filter(c -> c.getContractNumber() == claim.getContractNumber() && c.isActive())
                 .findFirst()
                 .orElse(null);
                 contract.setActive(false);
@@ -160,7 +122,6 @@ public class ClaimService {
     
     public void viewAllClaims(List<Claim> claims) {
         System.out.println("=== Всі вимоги ===");
-        
         for (Claim claim : claims) {
             System.out.printf("Вимога #%d - Контракт #%d - Сума: %.2f - Статус: %s%n - Опис: %s%n",
                 claim.getClaimId(), claim.getContractNumber(), 

@@ -5,25 +5,26 @@ import java.util.Comparator;
 import java.util.List;
 
 public class Derivative {
+    private int id;
     private List<Contract> contracts;
-    
+    private  int customer_id  ;
     public Derivative() {
         this.contracts = new ArrayList<>();
     }
-    
     public void addContract(Contract contract) {
         contracts.add(contract);
     }
-    
+    public int getDerivativeId() { return id; }
+    public void setDerivativeId(int derivativeId) { this.id  = derivativeId; }
+    public int getCustomerId() { return customer_id; }
+    public void setCustomerId(int customerId) { this.customer_id  = customerId; }
     public void removeContract(Contract contract) {
         contracts.remove(contract);
     }
-    
     public void sortByRisk() {
         contracts.sort(Comparator.comparing(Contract::getRiskLevel));
         System.out.println("Контракти відсортовано за рівнем ризику");
     }
-    
     public List<Contract> searchContract(String criteria) {
         List<Contract> result = new ArrayList<>();
         for (Contract contract : contracts) {
@@ -35,13 +36,6 @@ public class Derivative {
         return result;
     }
     
-    public void calculateTotalValue() {
-        float totalValue = 0;
-        for (Contract contract : contracts) {
-            totalValue += contract.calculateValue();
-        }
-        System.out.println("Загальна вартість деривативу: " + totalValue);
-    }
     
     public List<Contract> getContracts() { 
         return new ArrayList<>(contracts); 
