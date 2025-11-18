@@ -61,6 +61,7 @@ public class ClaimService {
             Claim claim = Claim.input(scanner, contractNumber, contract.getCustomerId(), nextClaimId);
             claims.add(claim);
 
+
             FileService.saveClaims(claims); // <--- ЗБЕРЕЖЕННЯ
 
             System.out.println("Вимогу успішно подано! ID: " + claim.getClaimId());

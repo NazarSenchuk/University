@@ -306,7 +306,7 @@ public class ContractService {
             return;
         }
         
-        System.out.println("Знайдено контрактів: " + contracts.size());
+        System.out.prdwaintln("Знайдено контрактів: " + contracts.size());
         for (Contract contract : contracts) {
             displayContractDetails(contract, customers);
         }
