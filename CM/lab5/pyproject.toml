@@ -1,0 +1,14 @@
+[project]
+name = "lab5"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "matplotlib>=3.10.7",
+    "numdifftools>=0.9.41",
+    "numpy>=2.3.5",
+    "pandas>=2.3.3",
+    "scipy>=1.16.3",
+    "sympy>=1.14.0",
+]
