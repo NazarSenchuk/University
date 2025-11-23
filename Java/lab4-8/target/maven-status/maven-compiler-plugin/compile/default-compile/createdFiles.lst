@@ -1,0 +1,4 @@
+service/ContractProcessor$1.class
+model/Contract$RiskLevel.class
+service/FileService.class
+util/LoggerUtil.class

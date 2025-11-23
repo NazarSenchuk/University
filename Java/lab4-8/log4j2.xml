@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <File name="FileAppender" fileName="logs/application.log" append="true">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </File>
+
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level - %msg%n"/>
+        </Console>
+
+            <SMTP name="MailAppender"
+      subject="Помилка в додатку"
+      to="senchuknazar6@gmail.com"
+      from="senchuknazar6@gmail.com"
+      smtpHost="smtp.gmail.com"
+      smtpPort="587"
+      smtpProtocol="smtp"
+      smtpUsername="senchuknazar6@gmail.com"
+      smtpPassword="yrceqatcbpnrmita"
+      starttls="true"
+      ssl="false"
+      bufferSize="1">
+
+    <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{36} - %msg%n"/>
+    <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+</SMTP>
+
+
+    </Appenders>
+
+    <Loggers>
+        <Logger name="service" level="DEBUG" additivity="false">
+            <AppenderRef ref="FileAppender"/>
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="MailAppender" level="ERROR"/>
+        </Logger>
+
+        <Logger name="model" level="DEBUG" additivity="false">
+            <AppenderRef ref="FileAppender"/>
+            <AppenderRef ref="Console"/>
+        </Logger>
+
+        <Root level="INFO">
+            <AppenderRef ref="FileAppender"/>
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="MailAppender" level="ERROR"/>
+        </Root>
+    </Loggers>
+</Configuration>
