@@ -1,6 +1,7 @@
 package model;
 
 import java.time.LocalDate;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Customer {
@@ -37,11 +38,30 @@ public class Customer {
         System.out.print("Прізвище: ");
         String lastName = scanner.nextLine();
         System.out.print("Телефон: ");
-        String phone = scanner.nextLine();
+        String phone = getPhone(scanner,"номер користувача:");
         System.out.print("Email: ");
         String email = scanner.nextLine();
         
         return new Customer(0, firstName, lastName, phone, email);
+    }
+    public static String getPhone(Scanner scanner,String whatToInput) {
+            String tempForInput ;
+
+        while(true){
+            try{
+                System.out.println("Введіть " +  whatToInput);
+                tempForInput = scanner.nextLine().trim();;
+                if(tempForInput.matches("^\\\\+?[0-9]+$")){
+                    System.out.println("Знайдено посторонні символи !");
+                    continue;
+                }
+                return  tempForInput;
+            }
+            catch (InputMismatchException e) {
+                System.out.println(" Помилка! Введіть знову.");
+                scanner.nextLine();
+            }
+        }
     }
     @Override
     public String toString() {

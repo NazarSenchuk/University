@@ -14,7 +14,8 @@ public class ContractService {
     public ContractService(Scanner scanner) {
         this.scanner = scanner;
     }
-    
+
+    // Замініть старий метод createContractInteractive на цей:
     public void createContractInteractive(List<Customer> customers, List<Contract> contracts, ContractProcessor contractProcessor, List<Derivative> derivatives) {
         try {
             System.out.println("=== Створення контракту ===");
@@ -29,28 +30,40 @@ public class ContractService {
             }
 
             Derivative derivative = findDerivativeByCustomerId(derivatives, customerId);
+
+            // Логіка створення деривативу + ЗБЕРЕЖЕННЯ
             if (derivative == null) {
                 derivative = new Derivative();
-                derivative.setDerivativeId(nextDerivativeId++);
+                // Генеруємо ID: беремо максимальний існуючий + 1
+                int nextDerivId = derivatives.stream().mapToInt(Derivative::getDerivativeId).max().orElse(0) + 1;
+
+                derivative.setDerivativeId(nextDerivId);
                 derivative.setCustomerId(customerId);
                 derivatives.add(derivative);
+
+                FileService.saveDerivatives(derivatives); // <--- ЗБЕРЕЖЕННЯ
                 System.out.println("Створено новий дериватив для клієнта");
             }
 
             System.out.println("Обраний клієнт: " + selectedCustomer.getFirstName() + " " + selectedCustomer.getLastName());
 
-            Contract contract = Contract.input( nextContractId++, scanner, customerId, derivative.getDerivativeId());
+            // Логіка створення контракту + ЗБЕРЕЖЕННЯ
+            int nextContractId = contracts.stream().mapToInt(Contract::getContractNumber).max().orElse(0) + 1;
+
+            Contract contract = Contract.input(nextContractId, scanner, customerId, derivative.getDerivativeId());
             ContractProcessor.calculateRisk(contract);
             derivative.addContract(contract);
             contracts.add(contract);
-            
+
+            FileService.saveContracts(contracts); // <--- ЗБЕРЕЖЕННЯ
+
             System.out.println("=== Контракт успішно створено! ===");
             System.out.println("Номер контракту: " + contract.getContractNumber());
             System.out.println("Клієнт: " + selectedCustomer.getFirstName() + " " + selectedCustomer.getLastName());
             System.out.println("Дериватив ID: " + derivative.getDerivativeId());
             System.out.println("Період дії: з " + contract.getStartDate() + " по " + contract.getEndDate());
             System.out.println("Рівень ризику: " + contract.getRiskLevel());
-            
+
         } catch (Exception e) {
             System.out.println("Помилка при створенні контракту: " + e.getMessage());
             scanner.nextLine();
@@ -334,9 +347,18 @@ public class ContractService {
             .orElse(null);
     }
 
+    // Замініть старий метод registerCustomer на цей:
     public void registerCustomer(List<Customer> customers) {
         Customer newCustomer = Customer.input(scanner);
+
+        // Генеруємо ID
+        int nextCustomerId = customers.stream().mapToInt(Customer::getId).max().orElse(0) + 1;
+        newCustomer.setId(nextCustomerId);
+
         customers.add(newCustomer);
+
+        FileService.saveCustomers(customers); // <--- ЗБЕРЕЖЕННЯ
+
         System.out.println("Клієнта успішно зареєстровано! ID: " + newCustomer.getId());
     }
 }

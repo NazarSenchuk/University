@@ -13,30 +13,30 @@ public class ClaimService {
     public ClaimService(Scanner scanner) {
         this.scanner = scanner;
     }
-    
+
     public void submitClaim(List<Contract> contracts, List<Claim> claims) {
         try {
             System.out.println("=== Подача вимоги ===");
             System.out.println("Доступні контракти:");
             List<Contract> activeContracts = contracts.stream()
-                .filter(Contract::isActive)
-                .toList();
-                
+                    .filter(Contract::isActive)
+                    .toList();
+
             if (activeContracts.isEmpty()) {
                 System.out.println("Немає активних контрактів!");
                 return;
             }
-            
+
             for (Contract contract : activeContracts) {
                 System.out.println("Контракт #" + contract.getContractNumber());
             }
-            
+
             System.out.print("Номер контракту (тільки цифри, без #): ");
             String input = scanner.nextLine().trim();
             if (input.startsWith("#")) {
                 input = input.substring(1);
             }
-            
+
             int contractNumber;
             try {
                 contractNumber = Integer.parseInt(input);
@@ -44,35 +44,42 @@ public class ClaimService {
                 System.out.println("Помилка: введіть тільки цифри для номера контракту!");
                 return;
             }
-            
-            Contract contract = contracts.stream().filter(c -> c.getContractNumber() == contractNumber && c.isActive())
-                .findFirst()
-                .orElse(null);
-                
+
+            Contract contract = contracts.stream()
+                    .filter(c -> c.getContractNumber() == contractNumber && c.isActive())
+                    .findFirst()
+                    .orElse(null);
+
             if (contract == null) {
                 System.out.println("Контракт не знайдений або неактивний!");
                 return;
             }
-            Claim claim =  Claim.input(scanner, contractNumber, contract.getCustomerId() , nextClaimId++);
+
+            // === ЗМІНИ ТУТ: Генеруємо ID і зберігаємо ===
+            int nextClaimId = claims.stream().mapToInt(Claim::getClaimId).max().orElse(0) + 1;
+
+            Claim claim = Claim.input(scanner, contractNumber, contract.getCustomerId(), nextClaimId);
             claims.add(claim);
-            
+
+            FileService.saveClaims(claims); // <--- ЗБЕРЕЖЕННЯ
+
             System.out.println("Вимогу успішно подано! ID: " + claim.getClaimId());
         } catch (Exception e) {
             System.out.println("Помилка при подачі вимоги: " + e.getMessage());
             e.printStackTrace();
         }
     }
-    
+
     public void reviewClaim(List<Claim> claims , List<Contract> contracts) {
         try {
             System.out.println("=== Перегляд вимоги ===");
-            
+
             System.out.print("ID вимоги: ");
             int claimId = scanner.nextInt();
             scanner.nextLine();
-            
+
             Claim claim = claims.stream().filter(c -> c.getClaimId() == claimId).findFirst().orElse(null);
-            
+
             if (claim == null) {
                 System.out.println("Вимога не знайдена!");
                 return;
@@ -85,16 +92,30 @@ public class ClaimService {
             System.out.print("Дія (1-схвалити, 2-відхилити): ");
             int action = scanner.nextInt();
             scanner.nextLine();
-            
+
             if (action == 1) {
                 claim.setStatus("Схвалено");
-                Contract contract = contracts.stream().filter(c -> c.getContractNumber() == claim.getContractNumber() && c.isActive())
-                .findFirst()
-                .orElse(null);
-                contract.setActive(false);
+
+                // Шукаємо контракт для деактивації
+                Contract contract = contracts.stream()
+                        .filter(c -> c.getContractNumber() == claim.getContractNumber())
+                        .findFirst()
+                        .orElse(null);
+
+                if (contract != null) {
+                    contract.setActive(false);
+                }
+
+                // Зберігаємо обидва файли, бо змінилися і контракти, і вимоги
+                FileService.saveClaims(claims);
+                FileService.saveContracts(contracts);
+
                 System.out.println("Вимогу " + claimId + " схвалено");
             } else if (action == 2) {
                 claim.setStatus("Відхилено");
+
+                FileService.saveClaims(claims); // Зберігаємо тільки вимоги
+
                 System.out.println("Вимогу " + claimId + " відхилено");
             }
         } catch (Exception e) {

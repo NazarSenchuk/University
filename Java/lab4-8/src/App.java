@@ -4,6 +4,7 @@ import model.*;
 import service.*;
 import java.time.LocalDate;
 import java.util.*;
+import service.FileService;
 
 public class App {
     private static final List<Customer> customers = new ArrayList<>();
@@ -16,16 +17,20 @@ public class App {
     private static final ContractProcessor contractProcessor = new ContractProcessor();
 
     public static void main(String[] args) {
+        FileService.loadAll(customers, derivatives, contracts, claims);
         Menu mainMenu = MenuFactory.createMainMenu(customers, contracts, claims, contractService, claimService, contractProcessor, derivatives);
         MenuManager.pushMenu(mainMenu);
-        
+
         while (true) {
             Menu currentMenu = MenuManager.getCurrentMenu();
 
             if (currentMenu != null) {
                 currentMenu.show();
             } else {
-                MenuManager.pushMenu(mainMenu);
+
+                FileService.saveAll(customers, derivatives, contracts, claims);
+                System.out.println("Роботу завершено. Дані збережено.");
+                break;
             }
         }
     }

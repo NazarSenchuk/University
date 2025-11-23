@@ -1,6 +1,9 @@
 package model;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Claim {
@@ -42,16 +45,38 @@ public class Claim {
     public static Claim input(Scanner scanner, int contractNumber, int customerId , int claimId) {
         System.out.println("=== Введення даних вимоги ===");
         
-        System.out.print("Сума вимоги: ");
-        float amount = scanner.nextFloat();
-        scanner.nextLine();
+
+        float amount = getSumOfClaim(scanner,"Сума вимоги ");
+
         
         System.out.print("Опис вимоги: ");
         String description = scanner.nextLine();
         return new Claim(claimId, contractNumber, customerId, amount, 
                         description, LocalDate.now(), "На розгляді");
     }
+    public static float getSumOfClaim(Scanner scanner,String whatToInput) {
 
+        return getPosNum(scanner, whatToInput);
+    }
+    public static float getPosNum(Scanner scanner,String whatToInput) {
+        float tempNumForInput = 0;
+        while(true){
+            try{
+                System.out.println("Введіть " +  whatToInput);
+                tempNumForInput = scanner.nextFloat();
+                scanner.nextLine();
+                if (tempNumForInput < 0) {
+                    System.out.println(" Число не може бути від'ємним! Спробуйте ще раз.");
+                    continue;
+                }
+                return tempNumForInput;
+            }
+            catch (InputMismatchException e) {
+                System.out.println(" Помилка! Введіть знову.");
+                scanner.nextLine();
+            }
+        }
+    }
     @Override
     public String toString() {
         return "Вимога #" + claimId + " - Контракт: " + contractNumber + " - Сума: " + amount;

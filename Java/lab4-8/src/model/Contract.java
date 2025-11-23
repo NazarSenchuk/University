@@ -1,6 +1,8 @@
 package model;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 import service.ContractProcessor;
@@ -39,12 +41,26 @@ public class Contract {
     public void setActive(boolean active) { isActive = active; }
     public String getRiskLevel() { return riskLevel; }
     public void setRiskLevel(String riskLevel) { this.riskLevel = riskLevel; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public static Contract input(int  contractNumber, Scanner scanner, int customerId, int derivativeId) {
         System.out.println("=== Введення даних контракту ===");
-        System.out.print("Дата початку: ");
-        LocalDate startDate = LocalDate.parse(scanner.nextLine());
-        System.out.print("Дата завершення: ");
-        LocalDate endDate = LocalDate.parse(scanner.nextLine());
+
+        LocalDate startDate = yearInput("Дата початку: ", scanner);
+
+        LocalDate endDate = yearInput("Дата завершення: ", scanner);
         
         if (endDate.isBefore(startDate)) {
             throw new IllegalArgumentException("Дата завершення не може бути раніше дати початку");
@@ -55,7 +71,23 @@ public class Contract {
         
         return new Contract(contractNumber, customerId, startDate, endDate, true,"", derivativeId);
     }
+    public static LocalDate yearInput(String whatToIn, Scanner scanner) {
+        while(true){
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+            try{
+                System.out.println("Введіть " +  whatToIn+"(формат дд.мм.рррр)"+":");
 
+                String input = scanner.nextLine().trim();
+
+                LocalDate date = LocalDate.parse(input, formatter);
+                return date;
+            }
+            catch (DateTimeParseException e) {
+
+                System.out.println(" Помилка! Введіть повну дату, наприклад: 25.10.2023");
+            }
+        }
+    }
     @Override
     public String toString() {
         return "Контракт #" + contractNumber + " (Ризик: " + riskLevel + ", Активний: " + isActive + ")";
