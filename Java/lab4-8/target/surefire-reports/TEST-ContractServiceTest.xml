@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="ContractServiceTest" time="0.149" tests="14" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="java.specification.version" value="21"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.class.path" value="/workspaces/University/Java/lab4-8/target/test-classes:/workspaces/University/Java/lab4-8/target/classes:/root/.m2/repository/org/apache/logging/log4j/log4j-core/2.20.0/log4j-core-2.20.0.jar:/root/.m2/repository/org/apache/logging/log4j/log4j-api/2.20.0/log4j-api-2.20.0.jar:/root/.m2/repository/com/sun/mail/javax.mail/1.6.2/javax.mail-1.6.2.jar:/root/.m2/repository/javax/activation/activation/1.1/activation-1.1.jar:/root/.m2/repository/org/junit/jupiter/junit-jupiter/5.9.2/junit-jupiter-5.9.2.jar:/root/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.9.2/junit-jupiter-api-5.9.2.jar:/root/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/root/.m2/repository/org/junit/platform/junit-platform-commons/1.9.2/junit-platform-commons-1.9.2.jar:/root/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/root/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.9.2/junit-jupiter-params-5.9.2.jar:/root/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.9.2/junit-jupiter-engine-5.9.2.jar:/root/.m2/repository/org/junit/platform/junit-platform-engine/1.9.2/junit-platform-engine-1.9.2.jar:"/>
+    <property name="java.vm.vendor" value="Microsoft"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.vendor.url" value="https://www.microsoft.com"/>
+    <property name="user.timezone" value="Etc/UTC"/>
+    <property name="os.name" value="Linux"/>
+    <property name="java.vm.specification.version" value="21"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="US"/>
+    <property name="sun.boot.library.path" value="/usr/lib/jvm/msopenjdk-current/lib"/>
+    <property name="sun.java.command" value="/workspaces/University/Java/lab4-8/target/surefire/surefirebooter-20251124090014558_3.jar /workspaces/University/Java/lab4-8/target/surefire 2025-11-24T09-00-14_334-jvmRun1 surefire-20251124090014558_1tmp surefire_0-20251124090014558_2tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="/workspaces/University/Java/lab4-8/target/test-classes:/workspaces/University/Java/lab4-8/target/classes:/root/.m2/repository/org/apache/logging/log4j/log4j-core/2.20.0/log4j-core-2.20.0.jar:/root/.m2/repository/org/apache/logging/log4j/log4j-api/2.20.0/log4j-api-2.20.0.jar:/root/.m2/repository/com/sun/mail/javax.mail/1.6.2/javax.mail-1.6.2.jar:/root/.m2/repository/javax/activation/activation/1.1/activation-1.1.jar:/root/.m2/repository/org/junit/jupiter/junit-jupiter/5.9.2/junit-jupiter-5.9.2.jar:/root/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.9.2/junit-jupiter-api-5.9.2.jar:/root/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/root/.m2/repository/org/junit/platform/junit-platform-commons/1.9.2/junit-platform-commons-1.9.2.jar:/root/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/root/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.9.2/junit-jupiter-params-5.9.2.jar:/root/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.9.2/junit-jupiter-engine-5.9.2.jar:/root/.m2/repository/org/junit/platform/junit-platform-engine/1.9.2/junit-platform-engine-1.9.2.jar:"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="/root"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2025-07-15"/>
+    <property name="java.home" value="/usr/lib/jvm/msopenjdk-current"/>
+    <property name="file.separator" value="/"/>
+    <property name="basedir" value="/workspaces/University/Java/lab4-8"/>
+    <property name="java.vm.compressedOopsMode" value="32-bit"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="surefire.real.class.path" value="/workspaces/University/Java/lab4-8/target/surefire/surefirebooter-20251124090014558_3.jar"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="21.0.8+9-LTS"/>
+    <property name="user.name" value="root"/>
+    <property name="stdout.encoding" value="UTF-8"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="6.6.87.2-microsoft-standard-WSL2"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="Microsoft-11933203"/>
+    <property name="localRepository" value="/root/.m2/repository"/>
+    <property name="java.vendor.url.bug" value="https://github.com/microsoft/openjdk/issues"/>
+    <property name="java.io.tmpdir" value="/tmp"/>
+    <property name="java.version" value="21.0.8"/>
+    <property name="user.dir" value="/workspaces/University/Java/lab4-8"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="native.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib"/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="stderr.encoding" value="UTF-8"/>
+    <property name="java.vendor" value="Microsoft"/>
+    <property name="java.vm.version" value="21.0.8+9-LTS"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="65.0"/>
+  </properties>
+  <testcase name="testSearchContractsInDerivative" classname="ContractServiceTest" time="0.015">
+    <system-out><![CDATA[09:00:20.208 [main] DEBUG - Пошук контрактів у деривативі
+Введіть ID деривативу: Введіть рівень ризику: Знайдені контракти:
+Контракт #1 | Ризик: LOW
+]]></system-out>
+  </testcase>
+  <testcase name="testFindDerivativeByCustomer" classname="ContractServiceTest" time="0.008">
+    <system-out><![CDATA[09:00:20.224 [main] DEBUG - Пошук деривативу за клієнтом
+Введіть ID клієнта: Знайдено дериватив:
+ID: 1
+Клієнт: Nazar Senchuk
+Кількість контрактів: 0
+]]></system-out>
+  </testcase>
+  <testcase name="testCreateContractInteractive" classname="ContractServiceTest" time="0.01">
+    <system-out><![CDATA[09:00:20.232 [main] INFO  - Початок процесу створення контракту
+=== Створення контракту ===
+Введіть ID клієнта: 09:00:20.234 [main] DEBUG - Знайдено клієнта: Nazar Senchuk
+Обраний клієнт: Nazar Senchuk
+=== Введення даних контракту ===
+Введіть Дата початку: (формат дд.мм.рррр):
+Введіть Дата завершення: (формат дд.мм.рррр):
+09:00:20.235 [main] DEBUG - Розраховано ризик для контракту 1: MEDIUM
+09:00:20.236 [main] DEBUG - Контрактів збережено - Кількість: 1
+09:00:20.237 [main] INFO  - Контракт успішно створено - Номер: 1, Клієнт: 1
+=== Контракт успішно створено! ===
+Номер контракту: 1
+Клієнт: Nazar Senchuk
+Дериватив ID: 1
+Період дії: з 2024-01-01 по 2024-12-31
+Рівень ризику: MEDIUM
+]]></system-out>
+  </testcase>
+  <testcase name="testShowContractsStatistics" classname="ContractServiceTest" time="0.018">
+    <system-out><![CDATA[09:00:20.245 [main] DEBUG - Показ статистики контрактів
+=== Статистика контрактів ===
+Загальна кількість: 3
+Активних: 2
+Неактивних: 1
+Ризик LOW: 1
+Ризик MEDIUM: 1
+Ризик HIGH: 1
+]]></system-out>
+  </testcase>
+  <testcase name="testViewAllContracts" classname="ContractServiceTest" time="0.004">
+    <system-out><![CDATA[09:00:20.266 [main] DEBUG - Перегляд всіх контрактів
+=== Всі контракти ===
+Загальна кількість контрактів: 1
+Контракт #1
+Клієнт: Невідомий (ID: 1001)
+Період: з 2025-11-24 по 2026-03-04
+Ризик: LOW
+Дериватив ID: 1
+Статус: Активний
+Вартість: 1000.00
+---
+]]></system-out>
+  </testcase>
+  <testcase name="testRegisterCustomer" classname="ContractServiceTest" time="0.01">
+    <system-out><![CDATA[=== Введення даних клієнта ===
+Ім'я: Прізвище: Телефон: Введіть номер користувача:
+Email: 09:00:20.276 [main] DEBUG - Клієнтів збережено - Кількість: 2
+09:00:20.277 [main] INFO  - Клієнта успішно зареєстровано - ID: 2
+Клієнта успішно зареєстровано! ID: 2
+]]></system-out>
+  </testcase>
+  <testcase name="testSortDerivativeContractsByRisk" classname="ContractServiceTest" time="0.005">
+    <system-out><![CDATA[09:00:20.283 [main] DEBUG - Сортування контрактів деривативу за ризиком
+Введіть ID деривативу: Контракти відсортовано за рівнем ризику
+09:00:20.285 [main] INFO  - Контракти деривативу 1 відсортовано за ризиком
+]]></system-out>
+  </testcase>
+  <testcase name="testViewCustomerContracts" classname="ContractServiceTest" time="0.006">
+    <system-out><![CDATA[09:00:20.291 [main] DEBUG - Початок перегляду контрактів клієнта
+=== Перегляд контрактів клієнта ===
+Введіть ID клієнта: Контракти клієнта: Nazar Senchuk
+Знайдено контрактів: 1
+Контракт #1
+Клієнт: Nazar Senchuk (ID: 1)
+Період: з 2025-11-24 по 2026-03-04
+Ризик: LOW
+Дериватив ID: 1
+Статус: Активний
+Вартість: 1000.00
+]]></system-out>
+  </testcase>
+  <testcase name="testShowContractsStatistics_Empty" classname="ContractServiceTest" time="0.004">
+    <system-out><![CDATA[09:00:20.301 [main] DEBUG - Показ статистики контрактів
+=== Статистика контрактів ===
+Загальна кількість: 0
+Активних: 0
+Неактивних: 0
+Ризик LOW: 0
+Ризик MEDIUM: 0
+Ризик HIGH: 0
+]]></system-out>
+  </testcase>
+  <testcase name="testFindContract" classname="ContractServiceTest" time="0.012">
+    <system-out><![CDATA[09:00:20.307 [main] DEBUG - Початок пошуку контракту
+=== Пошук контракту ===
+Оберіть критерій пошуку:
+1 - За номером контракту
+2 - За ID клієнта
+3 - За рівнем ризику
+Ваш вибір: Введіть номер контракту: 09:00:20.310 [main] DEBUG - Пошук контракту за номером: 1001, знайдено: 1
+Знайдено контрактів: 1
+Контракт #1001
+Клієнт: Nazar Senchuk (ID: 1)
+Період: з 2025-11-24 по 2026-03-04
+Ризик: LOW
+Дериватив ID: 1
+Статус: Активний
+Вартість: 1000.00
+]]></system-out>
+  </testcase>
+  <testcase name="testDisplayAllDerivatives" classname="ContractServiceTest" time="0.005">
+    <system-out><![CDATA[09:00:20.318 [main] DEBUG - Показ всіх деривативів
+=== Всі деривативи ===
+Дериватив ID: 1 | Клієнт: Nazar Senchuk | Контрактів: 0
+]]></system-out>
+  </testcase>
+  <testcase name="testCalculateDerivativeValue" classname="ContractServiceTest" time="0.015">
+    <system-out><![CDATA[09:00:20.326 [main] DEBUG - Розрахунок вартості деривативу
+Введіть ID деривативу: 09:00:20.328 [main] DEBUG - Розраховано загальну вартість деривативу 1: 1000.0
+Загальна вартість деривативу: 1000.0
+]]></system-out>
+  </testcase>
+  <testcase name="testViewDerivativeContracts" classname="ContractServiceTest" time="0.005">
+    <system-out><![CDATA[09:00:20.341 [main] DEBUG - Перегляд контрактів деривативу
+Введіть ID деривативу: === Контракти деривативу 1 ===
+Контракт #1
+Клієнт: Nazar Senchuk (ID: 1)
+Період: з 2025-11-24 по 2026-03-04
+Ризик: LOW
+Дериватив ID: 1
+Статус: Активний
+Вартість: 1000.00
+---
+]]></system-out>
+  </testcase>
+  <testcase name="testViewAllContracts_Empty" classname="ContractServiceTest" time="0.004">
+    <system-out><![CDATA[09:00:20.348 [main] DEBUG - Перегляд всіх контрактів
+=== Всі контракти ===
+Загальна кількість контрактів: 0
+Контрактів немає.
+]]></system-out>
+  </testcase>
+</testsuite>

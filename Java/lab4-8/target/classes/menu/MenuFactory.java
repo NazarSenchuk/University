@@ -91,12 +91,33 @@
             menu.addItem(3, "Деривативи", 
                 new SwitchToMenuCommand(() -> createAgentDerivativesMenu(customers, contracts, claims, contractService, claimService, contractProcessor, derivatives)));
             menu.addItem(4, "Управління", 
+
+    
                 new SwitchToMenuCommand(() -> createAgentManagementMenu(customers, contracts, claims, contractService, claimService, contractProcessor, derivatives)));
+             menu.addItem(5, "Test", 
+                new SwitchToMenuCommand(() -> TestMenu(customers, contracts, claims, contractService, claimService, contractProcessor, derivatives)));
+            
+            
+            
+            
             menu.addItem(9, "Назад", new ReturnToPreviousMenuCommand());
             
             return menu;
         }
         
+        public static Menu TestMenu(List<Customer> customers, List<Contract> contracts, 
+                                                List<Claim> claims, ContractService contractService, 
+                                                ClaimService claimService, ContractProcessor contractProcessor, 
+                                                List<Derivative> derivatives) {
+            Menu menu = new Menu("ТЕст");
+            
+            menu.addItem(1, "Переглянути всі контрвфцвцфакти", 
+                () -> contractService.viewAllContracts(contracts, customers));
+        
+            
+            return menu;
+        }
+
         public static Menu createAgentContractsMenu(List<Customer> customers, List<Contract> contracts, 
                                                 List<Claim> claims, ContractService contractService, 
                                                 ClaimService claimService, ContractProcessor contractProcessor, 

@@ -15,7 +15,7 @@ public class FileServiceTest {
     @Test
     void testSaveAndLoadCustomers() {
         List<Customer> customers = new ArrayList<>();
-        customers.add(new Customer(1, "John", "Doe", "123-456-789", "john@test.com"));
+        customers.add(new Customer(1, "Nazar", "Senchuk", "123-456-789", "nazar@test.com"));
         customers.add(new Customer(2, "Jane", "Smith", "987-654-321", "jane@test.com"));
         
         assertDoesNotThrow(() -> FileService.saveCustomers(customers));

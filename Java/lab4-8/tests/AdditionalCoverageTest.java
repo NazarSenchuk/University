@@ -11,9 +11,9 @@ public class AdditionalCoverageTest {
     
     @Test
     void testCompanyAgent() {
-        CompanyAgent agent = new CompanyAgent(1, "John", "Agent");
+        CompanyAgent agent = new CompanyAgent(1, "Nazar", "Agent");
         assertEquals(1, agent.getAgentId());
-        assertEquals("John", agent.getFirstName());
+        assertEquals("Nazar", agent.getFirstName());
         assertEquals("Agent", agent.getLastName());
         
         agent.setAgentId(2);

@@ -318,3 +318,234 @@ java.util.InputMismatchException: null
 	at org.codehaus.mojo.exec.AbstractExecJavaBase.doExecClassLoader(AbstractExecJavaBase.java:377) ~[?:?]
 	at org.codehaus.mojo.exec.AbstractExecJavaBase.lambda$execute$0(AbstractExecJavaBase.java:287) ~[?:?]
 	at java.lang.Thread.run(Thread.java:1583) [?:?]
+2025-11-23 20:53:40.301 [main] DEBUG service.ContractProcessor - Валідація контракту 1: не пройдено
+2025-11-23 20:53:40.318 [main] DEBUG service.ContractProcessor - Валідація контракту 1: успішно
+2025-11-23 20:53:40.324 [main] DEBUG service.ContractProcessor - Розраховано ризик для контракту 1: LOW
+2025-11-23 20:53:40.328 [main] DEBUG service.ContractProcessor - Розраховано ризик для контракту 2: MEDIUM
+2025-11-23 20:53:40.335 [main] DEBUG service.ContractProcessor - Розраховано загальну вартість деривативу 0: 220.0
+2025-11-23 20:53:40.343 [main] DEBUG service.ContractProcessor - Розраховано ризик для контракту 3: HIGH
+2025-11-23 20:53:40.347 [main] DEBUG service.ContractProcessor - Валідація контракту 1: не пройдено
+2025-11-23 20:53:40.398 [main] DEBUG service.FileService - Клієнтів збережено - Кількість: 0
+2025-11-23 20:53:40.399 [main] DEBUG service.FileService - Контрактів збережено - Кількість: 0
+2025-11-23 20:53:40.400 [main] DEBUG service.FileService - Вимог збережено - Кількість: 0
+2025-11-23 20:53:40.401 [main] DEBUG service.FileService - Деривативів збережено - Кількість: 0
+2025-11-23 20:53:40.501 [main] DEBUG service.ContractProcessor - Валідація контракту 1: успішно
+2025-11-23 20:53:40.501 [main] DEBUG service.ContractProcessor - Валідація контракту 2: не пройдено
+2025-11-23 20:53:40.503 [main] DEBUG service.ContractProcessor - Розраховано ризик для контракту 1: MEDIUM
+2025-11-23 20:53:40.526 [main] DEBUG service.ClaimService - Початок перегляду вимоги
+2025-11-23 20:53:40.529 [main] WARN  service.ClaimService - Вимога не знайдена: 999
+2025-11-23 20:53:40.533 [main] INFO  service.ClaimService - Початок процесу подачі вимоги
+2025-11-23 20:53:40.549 [main] DEBUG service.FileService - Вимог збережено - Кількість: 1
+2025-11-23 20:53:40.549 [main] INFO  service.ClaimService - Вимогу успішно подано - ID: 1, Контракт: 1001
+2025-11-23 20:53:40.554 [main] DEBUG service.ClaimService - Перегляд вимог клієнта з ID: 1
+2025-11-23 20:53:40.559 [main] DEBUG service.ClaimService - Початок перегляду вимоги
+2025-11-23 20:53:40.565 [main] DEBUG service.FileService - Вимог збережено - Кількість: 1
+2025-11-23 20:53:40.567 [main] DEBUG service.FileService - Контрактів збережено - Кількість: 2
+2025-11-23 20:53:40.568 [main] INFO  service.ClaimService - Вимогу схвалено - ID: 1, Контракт: 1001
+2025-11-23 20:53:40.572 [main] DEBUG service.ClaimService - Перегляд всіх вимог
+2025-11-23 20:53:40.578 [main] DEBUG service.ClaimService - Перегляд всіх вимог
+2025-11-23 20:53:40.583 [main] DEBUG service.ClaimService - Початок перегляду вимоги
+2025-11-23 20:53:40.586 [main] DEBUG service.FileService - Вимог збережено - Кількість: 1
+2025-11-23 20:53:40.587 [main] INFO  service.ClaimService - Вимогу відхилено - ID: 1
+2025-11-23 20:53:40.595 [main] DEBUG service.ClaimService - Перегляд вимог клієнта з ID: 1
+2025-11-23 20:53:40.603 [main] DEBUG service.FileService - Контрактів збережено - Кількість: 1
+2025-11-23 20:53:40.607 [main] DEBUG service.FileService - Початок завантаження всіх даних
+2025-11-23 20:53:40.608 [main] DEBUG service.FileService - Клієнтів завантажено - Кількість: 0
+2025-11-23 20:53:40.608 [main] DEBUG service.FileService - Деривативів завантажено - Кількість: 0
+2025-11-23 20:53:40.611 [main] DEBUG service.FileService - Контрактів завантажено - Кількість: 1
+2025-11-23 20:53:40.612 [main] DEBUG service.FileService - Вимог завантажено - Кількість: 1
+2025-11-23 20:53:40.613 [main] INFO  service.FileService - Дані завантажено - Клієнтів: 0, Деривативів: 0, Контрактів: 1, Вимог: 1
+2025-11-23 20:53:40.618 [main] DEBUG service.FileService - Клієнтів збережено - Кількість: 2
+2025-11-23 20:53:40.628 [main] DEBUG service.FileService - Вимог збережено - Кількість: 1
+2025-11-23 20:53:40.632 [main] DEBUG service.FileService - Деривативів збережено - Кількість: 1
+2025-11-23 20:53:40.674 [main] DEBUG service.ContractService - Пошук контрактів у деривативі
+2025-11-23 20:53:40.683 [main] DEBUG service.ContractService - Пошук деривативу за клієнтом
+2025-11-23 20:53:40.691 [main] INFO  service.ContractService - Початок процесу створення контракту
+2025-11-23 20:53:40.692 [main] DEBUG service.ContractService - Знайдено клієнта: John Doe
+2025-11-23 20:53:40.694 [main] DEBUG service.ContractProcessor - Розраховано ризик для контракту 1: MEDIUM
+2025-11-23 20:53:40.695 [main] DEBUG service.FileService - Контрактів збережено - Кількість: 1
+2025-11-23 20:53:40.695 [main] INFO  service.ContractService - Контракт успішно створено - Номер: 1, Клієнт: 1
+2025-11-23 20:53:40.700 [main] DEBUG service.ContractService - Показ статистики контрактів
+2025-11-23 20:53:40.712 [main] DEBUG service.ContractService - Перегляд всіх контрактів
+2025-11-23 20:53:40.718 [main] DEBUG service.FileService - Клієнтів збережено - Кількість: 2
+2025-11-23 20:53:40.719 [main] INFO  service.ContractService - Клієнта успішно зареєстровано - ID: 2
+2025-11-23 20:53:40.723 [main] DEBUG service.ContractService - Сортування контрактів деривативу за ризиком
+2025-11-23 20:53:40.726 [main] INFO  service.ContractService - Контракти деривативу 1 відсортовано за ризиком
+2025-11-23 20:53:40.735 [main] DEBUG service.ContractService - Початок перегляду контрактів клієнта
+2025-11-23 20:53:40.742 [main] DEBUG service.ContractService - Показ статистики контрактів
+2025-11-23 20:53:40.745 [main] DEBUG service.ContractService - Початок пошуку контракту
+2025-11-23 20:53:40.748 [main] DEBUG service.ContractService - Пошук контракту за номером: 1001, знайдено: 1
+2025-11-23 20:53:40.753 [main] DEBUG service.ContractService - Показ всіх деривативів
+2025-11-23 20:53:40.758 [main] DEBUG service.ContractService - Розрахунок вартості деривативу
+2025-11-23 20:53:40.759 [main] DEBUG service.ContractProcessor - Розраховано загальну вартість деривативу 1: 1000.0
+2025-11-23 20:53:40.763 [main] DEBUG service.ContractService - Перегляд контрактів деривативу
+2025-11-23 20:53:40.768 [main] DEBUG service.ContractService - Перегляд всіх контрактів
+2025-11-24 08:19:42.014 [main] DEBUG service.ContractProcessor - Валідація контракту 1: не пройдено
+2025-11-24 08:19:42.031 [main] DEBUG service.ContractProcessor - Валідація контракту 1: успішно
+2025-11-24 08:19:42.036 [main] DEBUG service.ContractProcessor - Розраховано ризик для контракту 1: LOW
+2025-11-24 08:19:42.041 [main] DEBUG service.ContractProcessor - Розраховано ризик для контракту 2: MEDIUM
+2025-11-24 08:19:42.049 [main] DEBUG service.ContractProcessor - Розраховано загальну вартість деривативу 0: 220.0
+2025-11-24 08:19:42.062 [main] DEBUG service.ContractProcessor - Розраховано ризик для контракту 3: HIGH
+2025-11-24 08:19:42.067 [main] DEBUG service.ContractProcessor - Валідація контракту 1: не пройдено
+2025-11-24 08:19:42.141 [main] DEBUG service.FileService - Клієнтів збережено - Кількість: 0
+2025-11-24 08:19:42.142 [main] DEBUG service.FileService - Контрактів збережено - Кількість: 0
+2025-11-24 08:19:42.144 [main] DEBUG service.FileService - Вимог збережено - Кількість: 0
+2025-11-24 08:19:42.145 [main] DEBUG service.FileService - Деривативів збережено - Кількість: 0
+2025-11-24 08:19:42.276 [main] DEBUG service.ContractProcessor - Валідація контракту 1: успішно
+2025-11-24 08:19:42.277 [main] DEBUG service.ContractProcessor - Валідація контракту 2: не пройдено
+2025-11-24 08:19:42.280 [main] DEBUG service.ContractProcessor - Розраховано ризик для контракту 1: MEDIUM
+2025-11-24 08:19:42.309 [main] DEBUG service.ClaimService - Початок перегляду вимоги
+2025-11-24 08:19:42.312 [main] WARN  service.ClaimService - Вимога не знайдена: 999
+2025-11-24 08:19:42.318 [main] INFO  service.ClaimService - Початок процесу подачі вимоги
+2025-11-24 08:19:42.338 [main] DEBUG service.FileService - Вимог збережено - Кількість: 1
+2025-11-24 08:19:42.339 [main] INFO  service.ClaimService - Вимогу успішно подано - ID: 1, Контракт: 1001
+2025-11-24 08:19:42.347 [main] DEBUG service.ClaimService - Перегляд вимог клієнта з ID: 1
+2025-11-24 08:19:42.353 [main] DEBUG service.ClaimService - Початок перегляду вимоги
+2025-11-24 08:19:42.358 [main] DEBUG service.FileService - Вимог збережено - Кількість: 1
+2025-11-24 08:19:42.360 [main] DEBUG service.FileService - Контрактів збережено - Кількість: 2
+2025-11-24 08:19:42.362 [main] INFO  service.ClaimService - Вимогу схвалено - ID: 1, Контракт: 1001
+2025-11-24 08:19:42.369 [main] DEBUG service.ClaimService - Перегляд всіх вимог
+2025-11-24 08:19:42.376 [main] DEBUG service.ClaimService - Перегляд всіх вимог
+2025-11-24 08:19:42.386 [main] DEBUG service.ClaimService - Початок перегляду вимоги
+2025-11-24 08:19:42.390 [main] DEBUG service.FileService - Вимог збережено - Кількість: 1
+2025-11-24 08:19:42.391 [main] INFO  service.ClaimService - Вимогу відхилено - ID: 1
+2025-11-24 08:19:42.399 [main] DEBUG service.ClaimService - Перегляд вимог клієнта з ID: 1
+2025-11-24 08:19:42.410 [main] DEBUG service.FileService - Контрактів збережено - Кількість: 1
+2025-11-24 08:19:42.417 [main] DEBUG service.FileService - Початок завантаження всіх даних
+2025-11-24 08:19:42.419 [main] DEBUG service.FileService - Клієнтів завантажено - Кількість: 0
+2025-11-24 08:19:42.419 [main] DEBUG service.FileService - Деривативів завантажено - Кількість: 0
+2025-11-24 08:19:42.422 [main] DEBUG service.FileService - Контрактів завантажено - Кількість: 1
+2025-11-24 08:19:42.423 [main] DEBUG service.FileService - Вимог завантажено - Кількість: 1
+2025-11-24 08:19:42.424 [main] INFO  service.FileService - Дані завантажено - Клієнтів: 0, Деривативів: 0, Контрактів: 1, Вимог: 1
+2025-11-24 08:19:42.432 [main] DEBUG service.FileService - Клієнтів збережено - Кількість: 2
+2025-11-24 08:19:42.437 [main] DEBUG service.FileService - Вимог збережено - Кількість: 1
+2025-11-24 08:19:42.442 [main] DEBUG service.FileService - Деривативів збережено - Кількість: 1
+2025-11-24 08:19:42.500 [main] DEBUG service.ContractService - Пошук контрактів у деривативі
+2025-11-24 08:19:42.513 [main] DEBUG service.ContractService - Пошук деривативу за клієнтом
+2025-11-24 08:19:42.522 [main] INFO  service.ContractService - Початок процесу створення контракту
+2025-11-24 08:19:42.524 [main] DEBUG service.ContractService - Знайдено клієнта: Nazar Senchuk
+2025-11-24 08:19:42.526 [main] DEBUG service.ContractProcessor - Розраховано ризик для контракту 1: MEDIUM
+2025-11-24 08:19:42.528 [main] DEBUG service.FileService - Контрактів збережено - Кількість: 1
+2025-11-24 08:19:42.530 [main] INFO  service.ContractService - Контракт успішно створено - Номер: 1, Клієнт: 1
+2025-11-24 08:19:42.536 [main] DEBUG service.ContractService - Показ статистики контрактів
+2025-11-24 08:19:42.553 [main] DEBUG service.ContractService - Перегляд всіх контрактів
+2025-11-24 08:19:42.565 [main] DEBUG service.FileService - Клієнтів збережено - Кількість: 2
+2025-11-24 08:19:42.566 [main] INFO  service.ContractService - Клієнта успішно зареєстровано - ID: 2
+2025-11-24 08:19:42.570 [main] DEBUG service.ContractService - Сортування контрактів деривативу за ризиком
+2025-11-24 08:19:42.575 [main] INFO  service.ContractService - Контракти деривативу 1 відсортовано за ризиком
+2025-11-24 08:19:42.586 [main] DEBUG service.ContractService - Початок перегляду контрактів клієнта
+2025-11-24 08:19:42.595 [main] DEBUG service.ContractService - Показ статистики контрактів
+2025-11-24 08:19:42.602 [main] DEBUG service.ContractService - Початок пошуку контракту
+2025-11-24 08:19:42.606 [main] DEBUG service.ContractService - Пошук контракту за номером: 1001, знайдено: 1
+2025-11-24 08:19:42.613 [main] DEBUG service.ContractService - Показ всіх деривативів
+2025-11-24 08:19:42.622 [main] DEBUG service.ContractService - Розрахунок вартості деривативу
+2025-11-24 08:19:42.624 [main] DEBUG service.ContractProcessor - Розраховано загальну вартість деривативу 1: 1000.0
+2025-11-24 08:19:42.631 [main] DEBUG service.ContractService - Перегляд контрактів деривативу
+2025-11-24 08:19:42.639 [main] DEBUG service.ContractService - Перегляд всіх контрактів
+2025-11-24 08:54:19.414 [App.main()] INFO  App - Додаток запущено
+2025-11-24 08:54:19.424 [App.main()] DEBUG service.FileService - Початок завантаження всіх даних
+2025-11-24 08:54:19.442 [App.main()] DEBUG service.FileService - Клієнтів завантажено - Кількість: 2
+2025-11-24 08:54:19.445 [App.main()] DEBUG service.FileService - Деривативів завантажено - Кількість: 1
+2025-11-24 08:54:19.457 [App.main()] DEBUG service.FileService - Контрактів завантажено - Кількість: 1
+2025-11-24 08:54:19.460 [App.main()] DEBUG service.FileService - Вимог завантажено - Кількість: 1
+2025-11-24 08:54:19.460 [App.main()] INFO  service.FileService - Дані завантажено - Клієнтів: 2, Деривативів: 1, Контрактів: 1, Вимог: 1
+2025-11-24 08:54:19.464 [App.main()] INFO  App - Дані завантажено - Клієнтів: 2, Контрактів: 1, Вимог: 1, Деривативів: 1
+2025-11-24 08:54:47.393 [App.main()] DEBUG service.FileService - Клієнтів збережено - Кількість: 3
+2025-11-24 08:54:47.395 [App.main()] INFO  service.ContractService - Клієнта успішно зареєстровано - ID: 3
+2025-11-24 08:59:31.779 [App.main()] INFO  App - Додаток запущено
+2025-11-24 08:59:31.786 [App.main()] DEBUG service.FileService - Початок завантаження всіх даних
+2025-11-24 08:59:31.798 [App.main()] DEBUG service.FileService - Клієнтів завантажено - Кількість: 3
+2025-11-24 08:59:31.800 [App.main()] DEBUG service.FileService - Деривативів завантажено - Кількість: 1
+2025-11-24 08:59:31.808 [App.main()] DEBUG service.FileService - Контрактів завантажено - Кількість: 1
+2025-11-24 08:59:31.810 [App.main()] DEBUG service.FileService - Вимог завантажено - Кількість: 1
+2025-11-24 08:59:31.812 [App.main()] INFO  service.FileService - Дані завантажено - Клієнтів: 3, Деривативів: 1, Контрактів: 1, Вимог: 1
+2025-11-24 08:59:31.818 [App.main()] INFO  App - Дані завантажено - Клієнтів: 3, Контрактів: 1, Вимог: 1, Деривативів: 1
+2025-11-24 09:00:19.687 [main] DEBUG service.ContractProcessor - Валідація контракту 1: не пройдено
+2025-11-24 09:00:19.742 [main] DEBUG service.ContractProcessor - Валідація контракту 1: успішно
+2025-11-24 09:00:19.756 [main] DEBUG service.ContractProcessor - Розраховано ризик для контракту 1: LOW
+2025-11-24 09:00:19.769 [main] DEBUG service.ContractProcessor - Розраховано ризик для контракту 2: MEDIUM
+2025-11-24 09:00:19.781 [main] DEBUG service.ContractProcessor - Розраховано загальну вартість деривативу 0: 220.0
+2025-11-24 09:00:19.796 [main] DEBUG service.ContractProcessor - Розраховано ризик для контракту 3: HIGH
+2025-11-24 09:00:19.801 [main] DEBUG service.ContractProcessor - Валідація контракту 1: не пройдено
+2025-11-24 09:00:19.863 [main] DEBUG service.FileService - Клієнтів збережено - Кількість: 0
+2025-11-24 09:00:19.865 [main] DEBUG service.FileService - Контрактів збережено - Кількість: 0
+2025-11-24 09:00:19.867 [main] DEBUG service.FileService - Вимог збережено - Кількість: 0
+2025-11-24 09:00:19.869 [main] DEBUG service.FileService - Деривативів збережено - Кількість: 0
+2025-11-24 09:00:19.995 [main] DEBUG service.ContractProcessor - Валідація контракту 1: успішно
+2025-11-24 09:00:19.995 [main] DEBUG service.ContractProcessor - Валідація контракту 2: не пройдено
+2025-11-24 09:00:19.998 [main] DEBUG service.ContractProcessor - Розраховано ризик для контракту 1: MEDIUM
+2025-11-24 09:00:20.023 [main] DEBUG service.ClaimService - Початок перегляду вимоги
+2025-11-24 09:00:20.028 [main] WARN  service.ClaimService - Вимога не знайдена: 999
+2025-11-24 09:00:20.034 [main] INFO  service.ClaimService - Початок процесу подачі вимоги
+2025-11-24 09:00:20.053 [main] DEBUG service.FileService - Вимог збережено - Кількість: 1
+2025-11-24 09:00:20.055 [main] INFO  service.ClaimService - Вимогу успішно подано - ID: 1, Контракт: 1001
+2025-11-24 09:00:20.064 [main] DEBUG service.ClaimService - Перегляд вимог клієнта з ID: 1
+2025-11-24 09:00:20.071 [main] DEBUG service.ClaimService - Початок перегляду вимоги
+2025-11-24 09:00:20.079 [main] DEBUG service.FileService - Вимог збережено - Кількість: 1
+2025-11-24 09:00:20.082 [main] DEBUG service.FileService - Контрактів збережено - Кількість: 2
+2025-11-24 09:00:20.083 [main] INFO  service.ClaimService - Вимогу схвалено - ID: 1, Контракт: 1001
+2025-11-24 09:00:20.088 [main] DEBUG service.ClaimService - Перегляд всіх вимог
+2025-11-24 09:00:20.097 [main] DEBUG service.ClaimService - Перегляд всіх вимог
+2025-11-24 09:00:20.102 [main] DEBUG service.ClaimService - Початок перегляду вимоги
+2025-11-24 09:00:20.104 [main] DEBUG service.FileService - Вимог збережено - Кількість: 1
+2025-11-24 09:00:20.105 [main] INFO  service.ClaimService - Вимогу відхилено - ID: 1
+2025-11-24 09:00:20.112 [main] DEBUG service.ClaimService - Перегляд вимог клієнта з ID: 1
+2025-11-24 09:00:20.119 [main] DEBUG service.FileService - Контрактів збережено - Кількість: 1
+2025-11-24 09:00:20.125 [main] DEBUG service.FileService - Початок завантаження всіх даних
+2025-11-24 09:00:20.128 [main] DEBUG service.FileService - Клієнтів завантажено - Кількість: 0
+2025-11-24 09:00:20.129 [main] DEBUG service.FileService - Деривативів завантажено - Кількість: 0
+2025-11-24 09:00:20.131 [main] DEBUG service.FileService - Контрактів завантажено - Кількість: 1
+2025-11-24 09:00:20.132 [main] DEBUG service.FileService - Вимог завантажено - Кількість: 1
+2025-11-24 09:00:20.133 [main] INFO  service.FileService - Дані завантажено - Клієнтів: 0, Деривативів: 0, Контрактів: 1, Вимог: 1
+2025-11-24 09:00:20.137 [main] DEBUG service.FileService - Клієнтів збережено - Кількість: 2
+2025-11-24 09:00:20.146 [main] DEBUG service.FileService - Вимог збережено - Кількість: 1
+2025-11-24 09:00:20.150 [main] DEBUG service.FileService - Деривативів збережено - Кількість: 1
+2025-11-24 09:00:20.208 [main] DEBUG service.ContractService - Пошук контрактів у деривативі
+2025-11-24 09:00:20.224 [main] DEBUG service.ContractService - Пошук деривативу за клієнтом
+2025-11-24 09:00:20.232 [main] INFO  service.ContractService - Початок процесу створення контракту
+2025-11-24 09:00:20.234 [main] DEBUG service.ContractService - Знайдено клієнта: Nazar Senchuk
+2025-11-24 09:00:20.235 [main] DEBUG service.ContractProcessor - Розраховано ризик для контракту 1: MEDIUM
+2025-11-24 09:00:20.236 [main] DEBUG service.FileService - Контрактів збережено - Кількість: 1
+2025-11-24 09:00:20.237 [main] INFO  service.ContractService - Контракт успішно створено - Номер: 1, Клієнт: 1
+2025-11-24 09:00:20.245 [main] DEBUG service.ContractService - Показ статистики контрактів
+2025-11-24 09:00:20.266 [main] DEBUG service.ContractService - Перегляд всіх контрактів
+2025-11-24 09:00:20.276 [main] DEBUG service.FileService - Клієнтів збережено - Кількість: 2
+2025-11-24 09:00:20.277 [main] INFO  service.ContractService - Клієнта успішно зареєстровано - ID: 2
+2025-11-24 09:00:20.283 [main] DEBUG service.ContractService - Сортування контрактів деривативу за ризиком
+2025-11-24 09:00:20.285 [main] INFO  service.ContractService - Контракти деривативу 1 відсортовано за ризиком
+2025-11-24 09:00:20.291 [main] DEBUG service.ContractService - Початок перегляду контрактів клієнта
+2025-11-24 09:00:20.301 [main] DEBUG service.ContractService - Показ статистики контрактів
+2025-11-24 09:00:20.307 [main] DEBUG service.ContractService - Початок пошуку контракту
+2025-11-24 09:00:20.310 [main] DEBUG service.ContractService - Пошук контракту за номером: 1001, знайдено: 1
+2025-11-24 09:00:20.318 [main] DEBUG service.ContractService - Показ всіх деривативів
+2025-11-24 09:00:20.326 [main] DEBUG service.ContractService - Розрахунок вартості деривативу
+2025-11-24 09:00:20.328 [main] DEBUG service.ContractProcessor - Розраховано загальну вартість деривативу 1: 1000.0
+2025-11-24 09:00:20.341 [main] DEBUG service.ContractService - Перегляд контрактів деривативу
+2025-11-24 09:00:20.348 [main] DEBUG service.ContractService - Перегляд всіх контрактів
+2025-11-24 09:07:02.077 [App.main()] INFO  App - Додаток запущено
+2025-11-24 09:07:02.084 [App.main()] DEBUG service.FileService - Початок завантаження всіх даних
+2025-11-24 09:07:02.099 [App.main()] DEBUG service.FileService - Клієнтів завантажено - Кількість: 2
+2025-11-24 09:07:02.100 [App.main()] DEBUG service.FileService - Деривативів завантажено - Кількість: 1
+2025-11-24 09:07:02.108 [App.main()] DEBUG service.FileService - Контрактів завантажено - Кількість: 1
+2025-11-24 09:07:02.110 [App.main()] DEBUG service.FileService - Вимог завантажено - Кількість: 1
+2025-11-24 09:07:02.111 [App.main()] INFO  service.FileService - Дані завантажено - Клієнтів: 2, Деривативів: 1, Контрактів: 1, Вимог: 1
+2025-11-24 09:07:02.116 [App.main()] INFO  App - Дані завантажено - Клієнтів: 2, Контрактів: 1, Вимог: 1, Деривативів: 1
+2025-11-24 09:07:12.499 [App.main()] INFO  service.ContractService - Початок процесу створення контракту
+2025-11-24 09:07:23.146 [App.main()] ERROR service.ContractService - Помилка при створенні контракту
+java.util.InputMismatchException: null
+	at java.util.Scanner.throwFor(Scanner.java:947) ~[?:?]
+	at java.util.Scanner.next(Scanner.java:1602) ~[?:?]
+	at java.util.Scanner.nextInt(Scanner.java:2267) ~[?:?]
+	at java.util.Scanner.nextInt(Scanner.java:2221) ~[?:?]
+	at service.ContractService.createContractInteractive(ContractService.java:28) ~[classes/:?]
+	at menu.MenuFactory.lambda$createCustomerContractsMenu$5(MenuFactory.java:51) ~[classes/:?]
+	at menu.Menu.execute(Menu.java:34) ~[classes/:?]
+	at menu.Menu.show(Menu.java:28) ~[classes/:?]
+	at App.main(App.java:41) ~[classes/:?]
+	at jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:580) ~[?:?]
+	at org.codehaus.mojo.exec.AbstractExecJavaBase.executeMainMethod(AbstractExecJavaBase.java:402) ~[?:?]
+	at org.codehaus.mojo.exec.ExecJavaMojo.executeMainMethod(ExecJavaMojo.java:142) ~[?:?]
+	at org.codehaus.mojo.exec.AbstractExecJavaBase.doExecClassLoader(AbstractExecJavaBase.java:377) ~[?:?]
+	at org.codehaus.mojo.exec.AbstractExecJavaBase.lambda$execute$0(AbstractExecJavaBase.java:287) ~[?:?]
+	at java.lang.Thread.run(Thread.java:1583) [?:?]

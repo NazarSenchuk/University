@@ -6,10 +6,10 @@ public class CompanyAgentTest {
     
     @Test
     void testCompanyAgentCreation() {
-        CompanyAgent agent = new CompanyAgent(1, "John", "Doe");
+        CompanyAgent agent = new CompanyAgent(1, "Nazar", "Doe");
         assertNotNull(agent);
         assertEquals(1, agent.getAgentId());
-        assertEquals("John", agent.getFirstName());
+        assertEquals("Nazar", agent.getFirstName());
         assertEquals("Doe", agent.getLastName());
     }
     
@@ -27,10 +27,10 @@ public class CompanyAgentTest {
     
     @Test
     void testCompanyAgentToString() {
-        CompanyAgent agent = new CompanyAgent(1, "John", "Doe");
+        CompanyAgent agent = new CompanyAgent(1, "Nazar", "Senchuk");
         String result = agent.toString();
         assertNotNull(result);
-        assertTrue(result.contains("John Doe"));
+        assertTrue(result.contains("Nazar Senchuk"));
         assertTrue(result.contains("ID: 1"));
     }
     

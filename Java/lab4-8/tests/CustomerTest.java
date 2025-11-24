@@ -8,17 +8,17 @@ public class CustomerTest {
     
     @BeforeEach
     void setUp() {
-        customer = new Customer(1, "John", "Doe", "123-456-789", "john@test.com");
+        customer = new Customer(1, "Nazar", "Senchuk", "123-456-789", "nazar@test.com");
     }
     
     @Test
     void testCustomerCreation() {
         assertNotNull(customer);
         assertEquals(1, customer.getId());
-        assertEquals("John", customer.getFirstName());
-        assertEquals("Doe", customer.getLastName());
+        assertEquals("Nazar", customer.getFirstName());
+        assertEquals("Senchuk", customer.getLastName());
         assertEquals("123-456-789", customer.getPhone());
-        assertEquals("john@test.com", customer.getEmail());
+        assertEquals("nazar@test.com", customer.getEmail());
     }
     
     @Test
@@ -40,7 +40,7 @@ public class CustomerTest {
     void testCustomerToString() {
         String toString = customer.toString();
         assertNotNull(toString);
-        assertTrue(toString.contains("John Doe"));
+        assertTrue(toString.contains("Nazar Senchuk"));
     }
     
     @Test

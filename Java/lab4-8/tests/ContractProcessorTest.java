@@ -13,7 +13,7 @@ public class ContractProcessorTest {
     void testCalculateRisk_Low() {
         Contract contract = new Contract(1, 1001, 
             LocalDate.of(2024, 1, 1), 
-            LocalDate.of(2024, 6, 1),  // 152 дні - LOW
+            LocalDate.of(2024, 6, 1), 
             true, null, 1);
             
         Contract.RiskLevel risk = ContractProcessor.calculateRisk(contract);
@@ -25,7 +25,7 @@ public class ContractProcessorTest {
     void testCalculateRisk_Medium() {
         Contract contract = new Contract(2, 1002, 
             LocalDate.of(2024, 1, 1), 
-            LocalDate.of(2024, 7, 1),  // 182 дні - MEDIUM
+            LocalDate.of(2024, 7, 1), 
             true, null, 1);
             
         Contract.RiskLevel risk = ContractProcessor.calculateRisk(contract);
@@ -36,7 +36,7 @@ public class ContractProcessorTest {
     void testCalculateRisk_High() {
         Contract contract = new Contract(3, 1003, 
             LocalDate.of(2024, 1, 1), 
-            LocalDate.of(2025, 1, 2),  // 367 днів - HIGH
+            LocalDate.of(2025, 1, 2), 
             true, null, 1);
             
         Contract.RiskLevel risk = ContractProcessor.calculateRisk(contract);
@@ -47,33 +47,33 @@ public class ContractProcessorTest {
     void testCalculateValue_LowRisk() {
         Contract contract = new Contract(1, 1001, 
             LocalDate.of(2024, 1, 1), 
-            LocalDate.of(2024, 1, 11),  // 10 днів
+            LocalDate.of(2024, 1, 11),  
             true, LOW, 1);
             
         float value = ContractProcessor.calculateValue(contract);
-        assertEquals(100.0f, value, 0.001);  // 10 днів * 10.0 * 1.0
+        assertEquals(100.0f, value, 0.001); 
     }
     
     @Test
     void testCalculateValue_MediumRisk() {
         Contract contract = new Contract(1, 1001, 
             LocalDate.of(2024, 1, 1), 
-            LocalDate.of(2024, 1, 11),  // 10 днів
+            LocalDate.of(2024, 1, 11),  
             true, MEDIUM, 1);
             
         float value = ContractProcessor.calculateValue(contract);
-        assertEquals(120.0f, value, 0.001);  // 10 днів * 10.0 * 1.2
+        assertEquals(120.0f, value, 0.001); 
     }
     
     @Test
     void testCalculateValue_HighRisk() {
         Contract contract = new Contract(1, 1001, 
             LocalDate.of(2024, 1, 1), 
-            LocalDate.of(2024, 1, 11),  // 10 днів
+            LocalDate.of(2024, 1, 11),  
             true, HIGH, 1);
             
         float value = ContractProcessor.calculateValue(contract);
-        assertEquals(150.0f, value, 0.001);  // 10 днів * 10.0 * 1.5
+        assertEquals(150.0f, value, 0.001); 
     }
     
     @Test
@@ -94,7 +94,7 @@ public class ContractProcessorTest {
         derivative.addContract(contract2);
         
         float totalValue = ContractProcessor.calculateTotalValue(derivative);
-        assertEquals(220.0f, totalValue, 0.001);  // 100 + 120
+        assertEquals(220.0f, totalValue, 0.001); 
     }
     
     @Test

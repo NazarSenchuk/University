@@ -27,7 +27,7 @@ public class ContractServiceTest {
         contracts = new ArrayList<>();
         derivatives = new ArrayList<>();
         contractProcessor = new ContractProcessor();
-        customers.add(new Customer(1, "John", "Doe", "123-456-789", "john@test.com"));
+        customers.add(new Customer(1, "Nazar", "Senchuk", "123-456-789", "nazar@test.com"));
     }
      @Test
     void testCreateContractInteractive() {
@@ -45,7 +45,7 @@ public class ContractServiceTest {
         );
         
         assertEquals(1, contracts.size());
-        assertEquals(1, derivatives.size()); // Не повинен створити новий дериватив
+        assertEquals(1, derivatives.size()); 
     }
     @Test
     void testShowContractsStatistics() {

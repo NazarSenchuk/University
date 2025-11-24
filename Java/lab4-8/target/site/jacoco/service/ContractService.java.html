@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ContractService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">insurance-system</a> &gt; <a href="index.source.html" class="el_package">service</a> &gt; <span class="el_source">ContractService.java</span></div><h1>ContractService.java</h1><pre class="source lang-java linenums">package service;
+
+import model.Contract;
+import model.Customer;
+import model.Derivative;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Scanner;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+public class ContractService {
+    private final Scanner scanner;
+<span class="fc" id="L14">    private int nextContractId = 1;</span>
+<span class="fc" id="L15">    private int nextDerivativeId = 1;</span>
+<span class="fc" id="L16">    private static final Logger logger = LogManager.getLogger(ContractService.class);</span>
+    
+<span class="fc" id="L18">    public ContractService(Scanner scanner) {</span>
+<span class="fc" id="L19">        this.scanner = scanner;</span>
+<span class="fc" id="L20">    }</span>
+
+    public void createContractInteractive(List&lt;Customer&gt; customers, List&lt;Contract&gt; contracts, ContractProcessor contractProcessor, List&lt;Derivative&gt; derivatives) {
+        try {
+<span class="fc" id="L24">            logger.info(&quot;Початок процесу створення контракту&quot;);</span>
+<span class="fc" id="L25">            System.out.println(&quot;=== Створення контракту ===&quot;);</span>
+
+<span class="fc" id="L27">            System.out.print(&quot;Введіть ID клієнта: &quot;);</span>
+<span class="fc" id="L28">            int customerId = scanner.nextInt();</span>
+<span class="fc" id="L29">            scanner.nextLine();</span>
+            
+<span class="fc" id="L31">            Customer selectedCustomer = findCustomerById(customers, customerId);</span>
+<span class="pc bpc" id="L32" title="1 of 2 branches missed.">            if (selectedCustomer == null) {</span>
+<span class="nc" id="L33">                logger.warn(&quot;Клієнт не знайдений з ID: {}&quot;, customerId);</span>
+<span class="nc" id="L34">                System.out.println(&quot;Клієнт з ID &quot; + customerId + &quot; не знайдений!&quot;);</span>
+<span class="nc" id="L35">                return;</span>
+            }
+
+<span class="fc" id="L38">            logger.debug(&quot;Знайдено клієнта: {} {}&quot;, selectedCustomer.getFirstName(), selectedCustomer.getLastName());</span>
+
+<span class="fc" id="L40">            Derivative derivative = findDerivativeByCustomerId(derivatives, customerId);</span>
+
+<span class="pc bpc" id="L42" title="1 of 2 branches missed.">            if (derivative == null) {</span>
+<span class="nc" id="L43">                derivative = new Derivative();</span>
+<span class="nc" id="L44">                int nextDerivId = derivatives.stream().mapToInt(Derivative::getDerivativeId).max().orElse(0) + 1;</span>
+
+<span class="nc" id="L46">                derivative.setDerivativeId(nextDerivId);</span>
+<span class="nc" id="L47">                derivative.setCustomerId(customerId);</span>
+<span class="nc" id="L48">                derivatives.add(derivative);</span>
+
+<span class="nc" id="L50">                FileService.saveDerivatives(derivatives);</span>
+<span class="nc" id="L51">                logger.info(&quot;Створено новий дериватив для клієнта ID: {}&quot;, customerId);</span>
+<span class="nc" id="L52">                System.out.println(&quot;Створено новий дериватив для клієнта&quot;);</span>
+            }
+
+<span class="fc" id="L55">            System.out.println(&quot;Обраний клієнт: &quot; + selectedCustomer.getFirstName() + &quot; &quot; + selectedCustomer.getLastName());</span>
+
+<span class="fc" id="L57">            int nextContractId = contracts.stream().mapToInt(Contract::getContractNumber).max().orElse(0) + 1;</span>
+
+<span class="fc" id="L59">            Contract contract = Contract.input(nextContractId, scanner, customerId, derivative.getDerivativeId());</span>
+<span class="fc" id="L60">            ContractProcessor.calculateRisk(contract);</span>
+<span class="fc" id="L61">            derivative.addContract(contract);</span>
+<span class="fc" id="L62">            contracts.add(contract);</span>
+
+<span class="fc" id="L64">            FileService.saveContracts(contracts);</span>
+
+<span class="fc" id="L66">            logger.info(&quot;Контракт успішно створено - Номер: {}, Клієнт: {}&quot;, contract.getContractNumber(), customerId);</span>
+<span class="fc" id="L67">            System.out.println(&quot;=== Контракт успішно створено! ===&quot;);</span>
+<span class="fc" id="L68">            System.out.println(&quot;Номер контракту: &quot; + contract.getContractNumber());</span>
+<span class="fc" id="L69">            System.out.println(&quot;Клієнт: &quot; + selectedCustomer.getFirstName() + &quot; &quot; + selectedCustomer.getLastName());</span>
+<span class="fc" id="L70">            System.out.println(&quot;Дериватив ID: &quot; + derivative.getDerivativeId());</span>
+<span class="fc" id="L71">            System.out.println(&quot;Період дії: з &quot; + contract.getStartDate() + &quot; по &quot; + contract.getEndDate());</span>
+<span class="fc" id="L72">            System.out.println(&quot;Рівень ризику: &quot; + contract.getRiskLevel());</span>
+
+<span class="nc" id="L74">        } catch (Exception e) {</span>
+<span class="nc" id="L75">            logger.error(&quot;Помилка при створенні контракту&quot;, e);</span>
+<span class="nc" id="L76">            System.out.println(&quot;Помилка при створенні контракту: &quot; + e.getMessage());</span>
+<span class="nc" id="L77">            scanner.nextLine();</span>
+<span class="fc" id="L78">        }</span>
+<span class="fc" id="L79">    }</span>
+    
+    public void findContract(List&lt;Customer&gt; customers, List&lt;Contract&gt; contracts) {
+        try {
+<span class="fc" id="L83">            logger.debug(&quot;Початок пошуку контракту&quot;);</span>
+<span class="fc" id="L84">            System.out.println(&quot;=== Пошук контракту ===&quot;);</span>
+<span class="fc" id="L85">            System.out.println(&quot;Оберіть критерій пошуку:&quot;);</span>
+<span class="fc" id="L86">            System.out.println(&quot;1 - За номером контракту&quot;);</span>
+<span class="fc" id="L87">            System.out.println(&quot;2 - За ID клієнта&quot;);</span>
+<span class="fc" id="L88">            System.out.println(&quot;3 - За рівнем ризику&quot;);</span>
+<span class="fc" id="L89">            System.out.print(&quot;Ваш вибір: &quot;);</span>
+            
+<span class="fc" id="L91">            int choice = scanner.nextInt();</span>
+<span class="fc" id="L92">            scanner.nextLine();</span>
+            
+            List&lt;Contract&gt; results;
+            
+<span class="pc bpc" id="L96" title="3 of 4 branches missed.">            switch (choice) {</span>
+                case 1:
+<span class="fc" id="L98">                    System.out.print(&quot;Введіть номер контракту: &quot;);</span>
+<span class="fc" id="L99">                    int contractNumber = scanner.nextInt();</span>
+<span class="fc" id="L100">                    scanner.nextLine();</span>
+<span class="fc" id="L101">                    results = contracts.stream()</span>
+<span class="pc bpc" id="L102" title="1 of 2 branches missed.">                        .filter(c -&gt; c.getContractNumber() == contractNumber)</span>
+<span class="fc" id="L103">                        .toList();</span>
+<span class="fc" id="L104">                    logger.debug(&quot;Пошук контракту за номером: {}, знайдено: {}&quot;, contractNumber, results.size());</span>
+<span class="fc" id="L105">                    break;</span>
+                    
+                case 2:
+<span class="nc" id="L108">                    System.out.print(&quot;Введіть ID клієнта: &quot;);</span>
+<span class="nc" id="L109">                    int customerId = scanner.nextInt();</span>
+<span class="nc" id="L110">                    scanner.nextLine();</span>
+<span class="nc" id="L111">                    results = contracts.stream()</span>
+<span class="nc bnc" id="L112" title="All 2 branches missed.">                        .filter(c -&gt; c.getCustomerId() == customerId)</span>
+<span class="nc" id="L113">                        .toList();</span>
+<span class="nc" id="L114">                    logger.debug(&quot;Пошук контрактів за клієнтом: {}, знайдено: {}&quot;, customerId, results.size());</span>
+<span class="nc" id="L115">                    break;</span>
+                    
+                case 3:
+<span class="nc" id="L118">                    System.out.print(&quot;Введіть рівень ризику (LOW/MEDIUM/HIGH): &quot;);</span>
+<span class="nc" id="L119">                    String riskLevelInput = scanner.nextLine();</span>
+                    try {
+<span class="nc" id="L121">                        Contract.RiskLevel riskLevel = Contract.RiskLevel.valueOf(riskLevelInput.toUpperCase());</span>
+<span class="nc" id="L122">                        results = contracts.stream()</span>
+<span class="nc bnc" id="L123" title="All 2 branches missed.">                            .filter(c -&gt; c.getRiskLevel() == riskLevel)</span>
+<span class="nc" id="L124">                            .toList();</span>
+<span class="nc" id="L125">                        logger.debug(&quot;Пошук контрактів за ризиком: {}, знайдено: {}&quot;, riskLevel, results.size());</span>
+<span class="nc" id="L126">                    } catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L127">                        logger.warn(&quot;Невірний рівень ризику введено: {}&quot;, riskLevelInput);</span>
+<span class="nc" id="L128">                        System.out.println(&quot;Невірний рівень ризику!&quot;);</span>
+<span class="nc" id="L129">                        results = List.of();</span>
+<span class="nc" id="L130">                    }</span>
+<span class="nc" id="L131">                    break;</span>
+                    
+                default:
+<span class="nc" id="L134">                    logger.warn(&quot;Невірний вибір при пошуку контракту: {}&quot;, choice);</span>
+<span class="nc" id="L135">                    System.out.println(&quot;Невірний вибір!&quot;);</span>
+<span class="nc" id="L136">                    return;</span>
+            }
+            
+<span class="fc" id="L139">            displayContractResults(results, customers);</span>
+            
+<span class="nc" id="L141">        } catch (Exception e) {</span>
+<span class="nc" id="L142">            logger.error(&quot;Помилка при пошуку контракту&quot;, e);</span>
+<span class="nc" id="L143">            System.out.println(&quot;Помилка при пошуку: &quot; + e.getMessage());</span>
+<span class="nc" id="L144">            scanner.nextLine();</span>
+<span class="fc" id="L145">        }</span>
+<span class="fc" id="L146">    }</span>
+
+    public void registerCustomer(List&lt;Customer&gt; customers) {
+<span class="fc" id="L149">        Customer newCustomer = Customer.input(scanner);</span>
+
+<span class="fc" id="L151">        int nextCustomerId = customers.stream().mapToInt(Customer::getId).max().orElse(0) + 1;</span>
+<span class="fc" id="L152">        newCustomer.setId(nextCustomerId);</span>
+
+<span class="fc" id="L154">        customers.add(newCustomer);</span>
+
+<span class="fc" id="L156">        FileService.saveCustomers(customers);</span>
+
+<span class="fc" id="L158">        logger.info(&quot;Клієнта успішно зареєстровано - ID: {}&quot;, newCustomer.getId());</span>
+<span class="fc" id="L159">        System.out.println(&quot;Клієнта успішно зареєстровано! ID: &quot; + newCustomer.getId());</span>
+<span class="fc" id="L160">    }</span>
+    
+    private Derivative findDerivativeByCustomerId(List&lt;Derivative&gt; derivatives, int customerId) {
+<span class="fc" id="L163">        return derivatives.stream()</span>
+<span class="pc bpc" id="L164" title="1 of 2 branches missed.">            .filter(d -&gt; d.getCustomerId() == customerId)</span>
+<span class="fc" id="L165">            .findFirst()</span>
+<span class="fc" id="L166">            .orElse(null);</span>
+    }
+    
+    private Customer findCustomerById(List&lt;Customer&gt; customers, int customerId) {
+<span class="fc" id="L170">        return customers.stream()</span>
+<span class="fc bfc" id="L171" title="All 2 branches covered.">            .filter(c -&gt; c.getId() == customerId) </span>
+<span class="fc" id="L172">            .findFirst()</span>
+<span class="fc" id="L173">            .orElse(null);</span>
+    }
+     public void viewCustomerContracts(List&lt;Customer&gt; customers, List&lt;Contract&gt; contracts) {
+        try {
+<span class="fc" id="L177">            logger.debug(&quot;Початок перегляду контрактів клієнта&quot;);</span>
+<span class="fc" id="L178">            System.out.println(&quot;=== Перегляд контрактів клієнта ===&quot;);</span>
+            
+<span class="fc" id="L180">            System.out.print(&quot;Введіть ID клієнта: &quot;);</span>
+<span class="fc" id="L181">            int customerId = scanner.nextInt();</span>
+<span class="fc" id="L182">            scanner.nextLine();</span>
+            
+<span class="fc" id="L184">            List&lt;Contract&gt; customerContracts = contracts.stream()</span>
+<span class="pc bpc" id="L185" title="1 of 2 branches missed.">                .filter(c -&gt; c.getCustomerId() == customerId)</span>
+<span class="fc" id="L186">                .toList();</span>
+                
+<span class="pc bpc" id="L188" title="1 of 2 branches missed.">            if (customerContracts.isEmpty()) {</span>
+<span class="nc" id="L189">                logger.warn(&quot;Контракти не знайдені для клієнта з ID: {}&quot;, customerId);</span>
+<span class="nc" id="L190">                System.out.println(&quot;Контракти не знайдені для клієнта з ID &quot; + customerId);</span>
+<span class="nc" id="L191">                return;</span>
+            }
+            
+<span class="fc" id="L194">            Customer customer = findCustomerById(customers, customerId);</span>
+<span class="fc" id="L195">            System.out.println(&quot;Контракти клієнта: &quot; + </span>
+<span class="pc bpc" id="L196" title="1 of 2 branches missed.">                (customer != null ? customer.getFirstName() + &quot; &quot; + customer.getLastName() : &quot;ID &quot; + customerId));</span>
+            
+<span class="fc" id="L198">            displayContractResults(customerContracts, customers);</span>
+            
+<span class="nc" id="L200">        } catch (Exception e) {</span>
+<span class="nc" id="L201">            logger.error(&quot;Помилка при перегляді контрактів клієнта&quot;, e);</span>
+<span class="nc" id="L202">            System.out.println(&quot;Помилка: &quot; + e.getMessage());</span>
+<span class="nc" id="L203">            scanner.nextLine();</span>
+<span class="fc" id="L204">        }</span>
+<span class="fc" id="L205">    }</span>
+    
+    public void viewAllContracts(List&lt;Contract&gt; contracts, List&lt;Customer&gt; customers) {
+<span class="fc" id="L208">        logger.debug(&quot;Перегляд всіх контрактів&quot;);</span>
+<span class="fc" id="L209">        System.out.println(&quot;=== Всі контракти ===&quot;);</span>
+<span class="fc" id="L210">        System.out.println(&quot;Загальна кількість контрактів: &quot; + contracts.size());</span>
+        
+<span class="fc bfc" id="L212" title="All 2 branches covered.">        if (contracts.isEmpty()) {</span>
+<span class="fc" id="L213">            System.out.println(&quot;Контрактів немає.&quot;);</span>
+<span class="fc" id="L214">            return;</span>
+        }
+        
+<span class="fc bfc" id="L217" title="All 2 branches covered.">        for (Contract contract : contracts) {</span>
+<span class="fc" id="L218">            displayContractDetails(contract, customers);</span>
+<span class="fc" id="L219">            System.out.println(&quot;---&quot;);</span>
+<span class="fc" id="L220">        }</span>
+<span class="fc" id="L221">    }</span>
+    
+    public void showContractsStatistics(List&lt;Contract&gt; contracts) {
+<span class="fc" id="L224">        logger.debug(&quot;Показ статистики контрактів&quot;);</span>
+<span class="fc" id="L225">        System.out.println(&quot;=== Статистика контрактів ===&quot;);</span>
+<span class="fc" id="L226">        System.out.println(&quot;Загальна кількість: &quot; + contracts.size());</span>
+        
+<span class="fc" id="L228">        long activeCount = contracts.stream().filter(Contract::isActive).count();</span>
+<span class="fc" id="L229">        System.out.println(&quot;Активних: &quot; + activeCount);</span>
+<span class="fc" id="L230">        System.out.println(&quot;Неактивних: &quot; + (contracts.size() - activeCount));</span>
+        
+<span class="fc" id="L232">        long lowRisk = contracts.stream().filter(c -&gt; Contract.RiskLevel.LOW.equals(c.getRiskLevel())).count();</span>
+<span class="fc" id="L233">        long mediumRisk = contracts.stream().filter(c -&gt; Contract.RiskLevel.MEDIUM.equals(c.getRiskLevel())).count();</span>
+<span class="fc" id="L234">        long highRisk = contracts.stream().filter(c -&gt; Contract.RiskLevel.HIGH.equals(c.getRiskLevel())).count();</span>
+        
+<span class="fc" id="L236">        System.out.println(&quot;Ризик LOW: &quot; + lowRisk);</span>
+<span class="fc" id="L237">        System.out.println(&quot;Ризик MEDIUM: &quot; + mediumRisk);</span>
+<span class="fc" id="L238">        System.out.println(&quot;Ризик HIGH: &quot; + highRisk);</span>
+<span class="fc" id="L239">    }</span>
+
+    public void displayAllDerivatives(List&lt;Derivative&gt; derivatives, List&lt;Customer&gt; customers) {
+<span class="fc" id="L242">        logger.debug(&quot;Показ всіх деривативів&quot;);</span>
+<span class="fc" id="L243">        System.out.println(&quot;=== Всі деривативи ===&quot;);</span>
+<span class="pc bpc" id="L244" title="1 of 2 branches missed.">        if (derivatives.isEmpty()) {</span>
+<span class="nc" id="L245">            System.out.println(&quot;Деривативів не знайдено.&quot;);</span>
+<span class="nc" id="L246">            return;</span>
+        }
+        
+<span class="fc bfc" id="L249" title="All 2 branches covered.">        for (Derivative derivative : derivatives) {</span>
+<span class="fc" id="L250">            Customer customer = findCustomerById(customers, derivative.getCustomerId());</span>
+<span class="fc" id="L251">            System.out.println(&quot;Дериватив ID: &quot; + derivative.getDerivativeId() + </span>
+<span class="pc bpc" id="L252" title="1 of 2 branches missed.">                &quot; | Клієнт: &quot; + (customer != null ? </span>
+<span class="pc" id="L253">                    customer.getFirstName() + &quot; &quot; + customer.getLastName() : &quot;Не знайдено&quot;) +</span>
+<span class="fc" id="L254">                &quot; | Контрактів: &quot; + derivative.getContracts().size());</span>
+<span class="fc" id="L255">        }</span>
+<span class="fc" id="L256">    }</span>
+    
+    public void findDerivativeByCustomer(List&lt;Derivative&gt; derivatives, List&lt;Customer&gt; customers) {
+<span class="fc" id="L259">        logger.debug(&quot;Пошук деривативу за клієнтом&quot;);</span>
+<span class="fc" id="L260">        System.out.print(&quot;Введіть ID клієнта: &quot;);</span>
+<span class="fc" id="L261">        int customerId = scanner.nextInt();</span>
+        
+<span class="fc" id="L263">        Derivative derivative = findDerivativeByCustomerId(derivatives, customerId);</span>
+            
+<span class="pc bpc" id="L265" title="1 of 2 branches missed.">        if (derivative == null) {</span>
+<span class="nc" id="L266">            logger.warn(&quot;Дериватив не знайдений для клієнта з ID: {}&quot;, customerId);</span>
+<span class="nc" id="L267">            System.out.println(&quot;Дериватив для клієнта з ID &quot; + customerId + &quot; не знайдено.&quot;);</span>
+<span class="nc" id="L268">            return;</span>
+        }
+        
+<span class="fc" id="L271">        Customer customer = findCustomerById(customers, customerId);</span>
+<span class="fc" id="L272">        System.out.println(&quot;Знайдено дериватив:&quot;);</span>
+<span class="fc" id="L273">        System.out.println(&quot;ID: &quot; + derivative.getDerivativeId());</span>
+<span class="pc bpc" id="L274" title="1 of 2 branches missed.">        System.out.println(&quot;Клієнт: &quot; + (customer != null ? </span>
+<span class="pc" id="L275">            customer.getFirstName() + &quot; &quot; + customer.getLastName() : &quot;Не знайдено&quot;));</span>
+<span class="fc" id="L276">        System.out.println(&quot;Кількість контрактів: &quot; + derivative.getContracts().size());</span>
+<span class="fc" id="L277">    }</span>
+    
+    public void sortDerivativeContractsByRisk(List&lt;Derivative&gt; derivatives) {
+<span class="fc" id="L280">        logger.debug(&quot;Сортування контрактів деривативу за ризиком&quot;);</span>
+<span class="fc" id="L281">        System.out.print(&quot;Введіть ID деривативу: &quot;);</span>
+<span class="fc" id="L282">        int derivativeId = scanner.nextInt();</span>
+        
+<span class="fc" id="L284">        Derivative derivative = findDerivativeById(derivatives, derivativeId);</span>
+            
+<span class="pc bpc" id="L286" title="1 of 2 branches missed.">        if (derivative == null) {</span>
+<span class="nc" id="L287">            logger.warn(&quot;Дериватив не знайдений з ID: {}&quot;, derivativeId);</span>
+<span class="nc" id="L288">            System.out.println(&quot;Дериватив з ID &quot; + derivativeId + &quot; не знайдено.&quot;);</span>
+<span class="nc" id="L289">            return;</span>
+        }
+        
+<span class="fc" id="L292">        derivative.sortByRisk();</span>
+<span class="fc" id="L293">        logger.info(&quot;Контракти деривативу {} відсортовано за ризиком&quot;, derivativeId);</span>
+<span class="fc" id="L294">    }</span>
+    
+    public void searchContractsInDerivative(List&lt;Derivative&gt; derivatives) {
+<span class="fc" id="L297">        logger.debug(&quot;Пошук контрактів у деривативі&quot;);</span>
+<span class="fc" id="L298">        System.out.print(&quot;Введіть ID деривативу: &quot;);</span>
+<span class="fc" id="L299">        int derivativeId = scanner.nextInt();</span>
+<span class="fc" id="L300">        scanner.nextLine();</span>
+        
+<span class="fc" id="L302">        Derivative derivative = findDerivativeById(derivatives, derivativeId);</span>
+            
+<span class="pc bpc" id="L304" title="1 of 2 branches missed.">        if (derivative == null) {</span>
+<span class="nc" id="L305">            logger.warn(&quot;Дериватив не знайдений з ID: {}&quot;, derivativeId);</span>
+<span class="nc" id="L306">            System.out.println(&quot;Дериватив з ID &quot; + derivativeId + &quot; не знайдено.&quot;);</span>
+<span class="nc" id="L307">            return;</span>
+        }
+        
+<span class="fc" id="L310">        System.out.print(&quot;Введіть рівень ризику: &quot;);</span>
+<span class="fc" id="L311">        String criteria = scanner.nextLine();</span>
+        
+<span class="fc" id="L313">        List&lt;Contract&gt; results = derivative.searchContract(criteria);</span>
+<span class="pc bpc" id="L314" title="1 of 2 branches missed.">        if (results.isEmpty()) {</span>
+<span class="nc" id="L315">            System.out.println(&quot;Контракти не знайдені.&quot;);</span>
+        } else {
+<span class="fc" id="L317">            System.out.println(&quot;Знайдені контракти:&quot;);</span>
+<span class="fc" id="L318">            results.forEach(contract -&gt; </span>
+<span class="fc" id="L319">                System.out.println(&quot;Контракт #&quot; + contract.getContractNumber() + </span>
+<span class="fc" id="L320">                    &quot; | Ризик: &quot; + contract.getRiskLevel()));</span>
+        }
+<span class="fc" id="L322">    }</span>
+    
+    public void calculateDerivativeValue(List&lt;Derivative&gt; derivatives) {
+<span class="fc" id="L325">        logger.debug(&quot;Розрахунок вартості деривативу&quot;);</span>
+<span class="fc" id="L326">        System.out.print(&quot;Введіть ID деривативу: &quot;);</span>
+<span class="fc" id="L327">        int derivativeId = scanner.nextInt();</span>
+        
+<span class="fc" id="L329">        Derivative derivative = findDerivativeById(derivatives, derivativeId);</span>
+            
+<span class="pc bpc" id="L331" title="1 of 2 branches missed.">        if (derivative == null) {</span>
+<span class="nc" id="L332">            logger.warn(&quot;Дериватив не знайдений з ID: {}&quot;, derivativeId);</span>
+<span class="nc" id="L333">            System.out.println(&quot;Дериватив з ID &quot; + derivativeId + &quot; не знайдено.&quot;);</span>
+<span class="nc" id="L334">            return;</span>
+        }
+        
+<span class="fc" id="L337">        float totalValue = ContractProcessor.calculateTotalValue(derivative);</span>
+<span class="fc" id="L338">        System.out.println(&quot;Загальна вартість деривативу: &quot; + totalValue);</span>
+<span class="fc" id="L339">    }</span>
+    
+    public void viewDerivativeContracts(List&lt;Derivative&gt; derivatives, List&lt;Customer&gt; customers) {
+<span class="fc" id="L342">        logger.debug(&quot;Перегляд контрактів деривативу&quot;);</span>
+<span class="fc" id="L343">        System.out.print(&quot;Введіть ID деривативу: &quot;);</span>
+<span class="fc" id="L344">        int derivativeId = scanner.nextInt();</span>
+        
+<span class="fc" id="L346">        Derivative derivative = findDerivativeById(derivatives, derivativeId);</span>
+            
+<span class="pc bpc" id="L348" title="1 of 2 branches missed.">        if (derivative == null) {</span>
+<span class="nc" id="L349">            logger.warn(&quot;Дериватив не знайдений з ID: {}&quot;, derivativeId);</span>
+<span class="nc" id="L350">            System.out.println(&quot;Дериватив з ID &quot; + derivativeId + &quot; не знайдено.&quot;);</span>
+<span class="nc" id="L351">            return;</span>
+        }
+        
+<span class="fc" id="L354">        System.out.println(&quot;=== Контракти деривативу &quot; + derivativeId + &quot; ===&quot;);</span>
+<span class="fc" id="L355">        List&lt;Contract&gt; contracts = derivative.getContracts();</span>
+<span class="pc bpc" id="L356" title="1 of 2 branches missed.">        if (contracts.isEmpty()) {</span>
+<span class="nc" id="L357">            System.out.println(&quot;Контрактів не знайдено.&quot;);</span>
+<span class="nc" id="L358">            return;</span>
+        }
+        
+<span class="fc bfc" id="L361" title="All 2 branches covered.">        for (Contract contract : contracts) {</span>
+<span class="fc" id="L362">            displayContractDetails(contract, customers);</span>
+<span class="fc" id="L363">            System.out.println(&quot;---&quot;);</span>
+<span class="fc" id="L364">        }</span>
+<span class="fc" id="L365">    }</span>
+
+    private void displayContractResults(List&lt;Contract&gt; contracts, List&lt;Customer&gt; customers) {
+<span class="pc bpc" id="L368" title="1 of 2 branches missed.">        if (contracts.isEmpty()) {</span>
+<span class="nc" id="L369">            System.out.println(&quot;Контракти не знайдені.&quot;);</span>
+<span class="nc" id="L370">            return;</span>
+        }
+        
+<span class="fc" id="L373">        System.out.println(&quot;Знайдено контрактів: &quot; + contracts.size());</span>
+<span class="fc bfc" id="L374" title="All 2 branches covered.">        for (Contract contract : contracts) {</span>
+<span class="fc" id="L375">            displayContractDetails(contract, customers);</span>
+<span class="fc" id="L376">        }</span>
+<span class="fc" id="L377">    }</span>
+    
+    private void displayContractDetails(Contract contract, List&lt;Customer&gt; customers) {
+<span class="fc" id="L380">        Customer customer = findCustomerById(customers, contract.getCustomerId());</span>
+<span class="fc bfc" id="L381" title="All 2 branches covered.">        String customerName = customer != null ? </span>
+<span class="fc" id="L382">            customer.getFirstName() + &quot; &quot; + customer.getLastName() : &quot;Невідомий&quot;;</span>
+            
+<span class="fc" id="L384">        System.out.printf(&quot;Контракт #%d%n&quot;, contract.getContractNumber());</span>
+<span class="fc" id="L385">        System.out.printf(&quot;Клієнт: %s (ID: %d)%n&quot;, customerName, contract.getCustomerId());</span>
+<span class="fc" id="L386">        System.out.printf(&quot;Період: з %s по %s%n&quot;, contract.getStartDate(), contract.getEndDate());</span>
+<span class="fc" id="L387">        System.out.printf(&quot;Ризик: %s%n&quot;, contract.getRiskLevel());</span>
+<span class="fc" id="L388">        System.out.println(&quot;Дериватив ID: &quot; + contract.getDerivativeId());</span>
+<span class="pc bpc" id="L389" title="1 of 2 branches missed.">        System.out.printf(&quot;Статус: %s%n&quot;, contract.isActive() ? &quot;Активний&quot; : &quot;Неактивний&quot;);</span>
+<span class="fc" id="L390">        System.out.printf(&quot;Вартість: %.2f%n&quot;, ContractProcessor.calculateValue(contract));</span>
+<span class="fc" id="L391">    }</span>
+    
+
+    
+    private Derivative findDerivativeById(List&lt;Derivative&gt; derivatives, int derivativeId) {
+<span class="fc" id="L396">        return derivatives.stream()</span>
+<span class="pc bpc" id="L397" title="1 of 2 branches missed.">            .filter(d -&gt; d.getDerivativeId() == derivativeId)</span>
+<span class="fc" id="L398">            .findFirst()</span>
+<span class="fc" id="L399">            .orElse(null);</span>
+    }
+    
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Claim.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">insurance-system</a> &gt; <a href="index.source.html" class="el_package">model</a> &gt; <span class="el_source">Claim.java</span></div><h1>Claim.java</h1><pre class="source lang-java linenums">package model;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class Claim {
+    private int claimId;
+    private int contractNumber;
+    private int customerId;
+    private float amount;
+    private String description;
+    private LocalDate submissionDate;
+    private String status;
+    
+<span class="fc" id="L18">    public Claim() {}</span>
+    
+    public Claim(int claimId, int contractNumber, int customerId, float amount, 
+<span class="fc" id="L21">                 String description, LocalDate submissionDate, String status) {</span>
+<span class="fc" id="L22">        this.claimId = claimId;</span>
+<span class="fc" id="L23">        this.contractNumber = contractNumber;</span>
+<span class="fc" id="L24">        this.customerId = customerId;</span>
+<span class="fc" id="L25">        this.amount = amount;</span>
+<span class="fc" id="L26">        this.description = description;</span>
+<span class="fc" id="L27">        this.submissionDate = submissionDate;</span>
+<span class="fc" id="L28">        this.status = status;</span>
+<span class="fc" id="L29">    }</span>
+<span class="fc" id="L30">    public int getClaimId() { return claimId; }</span>
+<span class="fc" id="L31">    public void setClaimId(int claimId) { this.claimId = claimId; }</span>
+<span class="fc" id="L32">    public int getContractNumber() { return contractNumber; }</span>
+<span class="fc" id="L33">    public void setContractNumber(int contractNumber) { this.contractNumber = contractNumber; }</span>
+<span class="fc" id="L34">    public int getCustomerId() { return customerId; }</span>
+<span class="fc" id="L35">    public void setCustomerId(int customerId) { this.customerId = customerId; }</span>
+<span class="fc" id="L36">    public float getAmount() { return amount; }</span>
+<span class="fc" id="L37">    public void setAmount(float amount) { this.amount = amount; }</span>
+<span class="fc" id="L38">    public String getDescription() { return description; }</span>
+<span class="fc" id="L39">    public void setDescription(String description) { this.description = description; } </span>
+<span class="fc" id="L40">    public LocalDate getSubmissionDate() { return submissionDate; }</span>
+<span class="fc" id="L41">    public void setSubmissionDate(LocalDate submissionDate) { this.submissionDate = submissionDate; }</span>
+<span class="fc" id="L42">    public String getStatus() { return status; }</span>
+<span class="fc" id="L43">    public void setStatus(String status) { this.status = status; }</span>
+
+    public static Claim input(Scanner scanner, int contractNumber, int customerId , int claimId) {
+<span class="fc" id="L46">        System.out.println(&quot;=== Введення даних вимоги ===&quot;);</span>
+        
+
+<span class="fc" id="L49">        float amount = getSumOfClaim(scanner,&quot;Сума вимоги &quot;);</span>
+
+        
+<span class="fc" id="L52">        System.out.print(&quot;Опис вимоги: &quot;);</span>
+<span class="fc" id="L53">        String description = scanner.nextLine();</span>
+<span class="fc" id="L54">        return new Claim(claimId, contractNumber, customerId, amount, </span>
+<span class="fc" id="L55">                        description, LocalDate.now(), &quot;На розгляді&quot;);</span>
+    }
+    public static float getSumOfClaim(Scanner scanner,String whatToInput) {
+
+<span class="fc" id="L59">        return getPosNum(scanner, whatToInput);</span>
+    }
+    public static float getPosNum(Scanner scanner,String whatToInput) {
+<span class="fc" id="L62">        float tempNumForInput = 0;</span>
+        while(true){
+            try{
+<span class="fc" id="L65">                System.out.println(&quot;Введіть &quot; +  whatToInput);</span>
+<span class="fc" id="L66">                tempNumForInput = scanner.nextFloat();</span>
+<span class="fc" id="L67">                scanner.nextLine();</span>
+<span class="pc bpc" id="L68" title="1 of 2 branches missed.">                if (tempNumForInput &lt; 0) {</span>
+<span class="nc" id="L69">                    System.out.println(&quot; Число не може бути від'ємним! Спробуйте ще раз.&quot;);</span>
+<span class="nc" id="L70">                    continue;</span>
+                }
+<span class="fc" id="L72">                return tempNumForInput;</span>
+            }
+<span class="nc" id="L74">            catch (InputMismatchException e) {</span>
+<span class="nc" id="L75">                System.out.println(&quot; Помилка! Введіть знову.&quot;);</span>
+<span class="nc" id="L76">                scanner.nextLine();</span>
+<span class="nc" id="L77">            }</span>
+        }
+    }
+    @Override
+    public String toString() {
+<span class="fc" id="L82">        return &quot;Вимога #&quot; + claimId + &quot; - Контракт: &quot; + contractNumber + &quot; - Сума: &quot; + amount;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
